@@ -11,9 +11,9 @@ services:
     volumes:
       - /home/peter/www/AtwintaProject/local/mysql:/var/lib/mysql # сохранение файлов БД на хосте
     expose:
-      - 3306
+      - 3307
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
   app:
     build:

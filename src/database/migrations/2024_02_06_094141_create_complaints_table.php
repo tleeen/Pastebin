@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Role;
+use App\Models\Post;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('complaints', function (Blueprint $table) {
             $table->id();
-            $table->string('login')->unique();
-            $table->string('password');
-            $table->foreignIdFor(Role::class, 'role_id');
-            $table->rememberToken();
+            $table->text('text');
+            $table->foreignIdFor(Post::class, 'post_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('complaints');
     }
 };
