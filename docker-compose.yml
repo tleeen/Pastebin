@@ -67,7 +67,7 @@ services:
       - traefik.http.routers.nginx-http.entrypoints=http
       - traefik.http.routers.nginx-http.middlewares=default-https-redirect@file
     ports:
-      - "8876:80"
+      - "8876:443"
 
   node:
     build:

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('login')->unique();
             $table->string('password');
-            $table->foreignIdFor(Role::class, 'role_id');
+            $table->foreignIdFor(Role::class, 'role_id')->default(1);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
