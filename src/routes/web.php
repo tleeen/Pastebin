@@ -25,12 +25,12 @@ Route::prefix('auth')
     ->group(function (){
         Route::prefix('/google')
             ->group(function (){
-                Route::get('/', [GoogleAuthController::class, 'showLoginForm']);
+                Route::get('/', [GoogleAuthController::class, 'showLoginForm'])->name('auth.google');
                 Route::get('/callback', [GoogleAuthController::class, 'login']);
             });
         Route::prefix('/yandex')
             ->group(function (){
-                Route::get('/', [YandexAuthController::class, 'showLoginForm']);
+                Route::get('/', [YandexAuthController::class, 'showLoginForm'])->name('auth.yandex');
                 Route::get('/callback', [YandexAuthController::class, 'login']);
             });
 });
