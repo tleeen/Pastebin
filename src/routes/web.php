@@ -20,8 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::prefix('auth')
     ->middleware('guest')
     ->group(function (){
@@ -37,4 +35,7 @@ Route::prefix('auth')
             });
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home');
+
+Auth::routes();

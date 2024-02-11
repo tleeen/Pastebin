@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,6 +15,26 @@ class Post extends Model
 
     protected $table = 'posts';
     protected $guarded = false;
+
+    /**
+     * @return void
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::creating(
+            /**
+         * @param $post
+         * @return void
+         */
+            function ($post){
+            $hashids = new Hashids('', 8);
+            if(!$post->id){
+                $post->id = Post::max('id') + 1;;
+            }
+            $post->hash = $hashids->encode($post->id);
+        });
+    }
 
     /**
      * @return BelongsTo

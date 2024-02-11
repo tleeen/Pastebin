@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Access_modifier;
+use App\Models\Expiration_time;
+use App\Models\Post;
+use App\Models\Role;
+use App\Models\Type;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +16,58 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $types = [[
+            'title' => 'text'
+        ], [
+            'title' => 'java'
+        ], [
+            'title' => 'php'
+        ], [
+            'title' => 'js'
+        ]];
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        foreach ($types as $type) {
+            Type::create($type);
+        }
+
+        $roles = [[
+            'title' => 'user'
+        ], [
+            'title' => 'admin'
+        ]];
+
+        foreach ($roles as $role) {
+            Role::create($role);
+        }
+
+        $access_modifiers = [[
+            'title' => 'public'
+        ], [
+            'title' => 'unlisted'
+        ], [
+            'title' => 'private'
+        ]];
+
+        foreach ($access_modifiers as $access_modifier) {
+            Access_modifier::create($access_modifier);
+        }
+
+        $expiration_times = [[
+            'volume' => 10
+        ], [
+            'volume' => 60
+        ], [
+            'volume' => 180
+        ], [
+            'volume' => 1440
+        ], [
+            'volume' => 10080
+        ], [
+            'volume' => 43200
+        ]];
+
+        foreach ($expiration_times as $expiration_time) {
+            Expiration_time::create($expiration_time);
+        }
     }
 }

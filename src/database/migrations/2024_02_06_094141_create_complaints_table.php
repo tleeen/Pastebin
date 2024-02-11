@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
-            $table->text('text');
+            $table->text('body');
             $table->foreignIdFor(Post::class, 'post_id');
             $table->timestamps();
             $table->softDeletes();

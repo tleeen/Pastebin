@@ -8,6 +8,10 @@ use Laravel\Socialite\Contracts\User;
 
 class SocialUserDTOFactory
 {
+    /**
+     * @param User $user
+     * @return SocialUserDTO
+     */
     public static function fromSocialUser(User $user): SocialUserDTO
     {
         $dto = new SocialUserDTO();
