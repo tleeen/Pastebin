@@ -4,21 +4,19 @@ namespace App\DTO\Factories;
 
 use App\DTO\SocialUserDTO;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Socialite\Contracts\User;
 
 class SocialUserDTOFactory
 {
     /**
-     * @param User $user
+     * @param array $data
      * @return SocialUserDTO
      */
-    public static function fromSocialUser(User $user): SocialUserDTO
+    public static function fromArray(array $data): SocialUserDTO
     {
         $dto = new SocialUserDTO();
 
-        $dto->login = $user->getEmail();
-
-        $dto->password = Hash::make('$2y$12$SLN5BppzxRPnxbwcpQ6OUulEpyBAc.DOdjSpwM4YarFqAzg44Pc5i');
+        $dto->login = $data['login'];
+        $dto->password = Hash::make('$2y$12$SLN5');
 
         return $dto;
     }

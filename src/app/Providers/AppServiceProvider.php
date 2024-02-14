@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
             SocialRepositoryInterface::class,
             SocialRepository::class
         );
+
         $this->app->bind(
             SocialServiceInterface::class,
             SocialService::class
