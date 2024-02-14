@@ -32,6 +32,10 @@ class YandexAuthController extends Controller
 
         $this->service->saveUser(SocialUserDTOFactory::fromSocialUser($user));
 
+<<<<<<< HEAD
         return redirect()->route('all');
+=======
+        return redirect()->route('home');
+>>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
     }
 }
