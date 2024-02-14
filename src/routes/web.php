@@ -38,7 +38,6 @@ Route::prefix('auth')
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');
 
-<<<<<<< HEAD
 Route::get('/all', function (){
     return view('posts.all');
 })->name('posts.all');
@@ -59,6 +58,4 @@ Route::get('/complaints', function (){
     return view('complaints.create');
 })->name('complaints.create');
 
-=======
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
 Auth::routes();

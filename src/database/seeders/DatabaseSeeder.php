@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
         foreach ($expiration_times as $expiration_time) {
             Expiration_time::create($expiration_time);
         }
-<<<<<<< HEAD
+
         Post::create([
             'title' => '1eq',
             'body' => 'wefsdf',
@@ -78,7 +78,5 @@ class DatabaseSeeder extends Seeder
             'access_modifier_id' => 1,
             'expiration_time_id' => 1
         ]);
-=======
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
     }
 }

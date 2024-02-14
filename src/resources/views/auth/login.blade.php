@@ -1,13 +1,10 @@
 @extends('layouts.app')
 
-<<<<<<< HEAD
 @section('nav')
     <a class="nav-link" href="{{ route('posts.all') }}">All Pastes</a>
     <a class="nav-link" href="{{ route('posts.create') }}">Create Paste</a>
 @endsection
 
-=======
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -49,7 +46,6 @@
 
                         <div class="row mb-3">
                             <div class="col">
-<<<<<<< HEAD
                                 <div class="container text-center ">
                                     <div class="d-flex justify-content-evenly">
                                         <div class="row">
@@ -59,15 +55,6 @@
                                             <div class="col">
                                                 <a href="{{route('auth.yandex')}}">Yandex</a>
                                             </div>
-=======
-                                <div class="container text-center">
-                                    <div class="row">
-                                        <div class="col">
-                                            <a href="{{route('auth.google')}}">Google</a>
-                                        </div>
-                                        <div class="col">
-                                            <a href="{{route('auth.yandex')}}">Yandex</a>
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
                                         </div>
                                     </div>
                                 </div>

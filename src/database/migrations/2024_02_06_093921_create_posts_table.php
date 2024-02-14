@@ -18,19 +18,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-<<<<<<< HEAD
             $table->string('hash')->unique();
             $table->string('title');
             $table->text('body');
             $table->foreignIdFor(Type::class, 'type_id');
             $table->foreignIdFor(User::class, 'author_id')->nullable();
-=======
-            $table->string('hash');
-            $table->string('title');
-            $table->text('body');
-            $table->foreignIdFor(Type::class, 'type_id');
-            $table->foreignIdFor(User::class, 'author_id');
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
             $table->foreignIdFor(Access_modifier::class, 'access_modifier_id');
             $table->foreignIdFor(Expiration_time::class, 'expiration_time_id');
             $table->timestamps();

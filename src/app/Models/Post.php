@@ -28,19 +28,11 @@ class Post extends Model
          * @return void
          */
             function ($post){
-<<<<<<< HEAD
             $hashids = new Hashids('ggIKLdf', 8);
             if(!$post->id){
                 $post->id = Post::max('id') + 1;;
             }
             $post->hash = $hashids->encode($post->id); // $hashids->decode($post->hash)[0]
-=======
-            $hashids = new Hashids('', 8);
-            if(!$post->id){
-                $post->id = Post::max('id') + 1;;
-            }
-            $post->hash = $hashids->encode($post->id);
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
         });
     }
 

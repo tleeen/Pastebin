@@ -6,6 +6,7 @@ use App\DTO\Factories\SocialUserDTOFactory;
 use App\Http\Controllers\Controller;
 use App\Services\SocialService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class YandexAuthController extends Controller
@@ -28,14 +29,10 @@ class YandexAuthController extends Controller
      */
     public function login(): RedirectResponse
     {
-        $user = Socialite::driver('yandex')->user();
+        $user = $this->service->saveUser(SocialUserDTOFactory::fromSocialUser(Socialite::driver('yandex')->user()));
 
-        $this->service->saveUser(SocialUserDTOFactory::fromSocialUser($user));
+        Auth::login($user);
 
-<<<<<<< HEAD
-        return redirect()->route('all');
-=======
-        return redirect()->route('home');
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
+        return redirect()->route('posts.all');
     }
 }

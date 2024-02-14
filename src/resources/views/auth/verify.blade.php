@@ -1,13 +1,10 @@
 @extends('layouts.app')
 
-<<<<<<< HEAD
 @section('nav')
     <a class="nav-link" href="#">All Pastes</a>
     <a class="nav-link" href="#">Create Paste</a>
 @endsection
 
-=======
->>>>>>> dd45e6571d4dc077fd49887c58fe1d89052d3bb3
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
