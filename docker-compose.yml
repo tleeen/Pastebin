@@ -11,9 +11,9 @@ services:
     volumes:
       - /home/peter/www/AtwintaProject/local/mysql:/var/lib/mysql # сохранение файлов БД на хосте
     expose:
-      - 3306
+      - 3307
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
   app:
     build:
@@ -67,7 +67,7 @@ services:
       - traefik.http.routers.nginx-http.entrypoints=http
       - traefik.http.routers.nginx-http.middlewares=default-https-redirect@file
     ports:
-      - "8876:80"
+      - "8876:443"
 
   node:
     build:
