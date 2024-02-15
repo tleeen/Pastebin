@@ -33,7 +33,7 @@ class GoogleAuthController extends Controller
     {
         $user = $this
             ->service
-            ->login(SocialUserDTOFactory::fromArray(['login' => Socialite::driver('google')
+            ->login(SocialUserDTOFactory::fromArray(['email' => Socialite::driver('google')
                 ->user()
                 ->getEmail()]));
         Auth::login($user);

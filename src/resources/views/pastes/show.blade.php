@@ -3,11 +3,11 @@
 @section('nav')
     @guest
         <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
-        <a class="nav-link" href="#">Create Paste</a>
+        <a class="nav-link" href="{{ route('pastes.create') }}">Create Paste</a>
     @else
         <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
         <a class="nav-link" href="{{ route('users.pastes') }}">My Pastes</a>
-        <a class="nav-link" href="#">Create Paste</a>
+        <a class="nav-link" href="{{ route('pastes.create') }}">Create Paste</a>
     @endguest
 @endsection
 

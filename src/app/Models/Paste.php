@@ -19,22 +19,22 @@ class Paste extends Model
     /**
      * @return void
      */
-    protected static function boot(): void
-    {
-        parent::boot();
-        static::creating(
-            /**
-         * @param $post
-         * @return void
-         */
-            function ($post){
-            $hashids = new Hashids('ggIKLdf', 8);
-            if(!$post->id){
-                $post->id = Paste::max('id') + 1;;
-            }
-            $post->hash = $hashids->encode($post->id); // $hashids->decode($post->hash)[0]
-        });
-    }
+//    protected static function boot(): void
+//    {
+//        parent::boot();
+//        static::creating(
+//            /**
+//         * @param $post
+//         * @return void
+//         */
+//            function ($post){
+//            $hashids = new Hashids('ggIKLdf', 8);
+//            if(!$post->id){
+//                $post->id = Paste::max('id') + 1;;
+//            }
+//            $post->hash = $hashids->encode($post->id); // $hashids->decode($post->hash)[0]
+//        });
+//    }
 
     /**
      * @return BelongsTo

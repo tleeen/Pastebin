@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\AccessModifier;
+use App\Models\Complaint;
 use App\Models\ExpirationTime;
 use App\Models\Paste;
-use App\Models\Role;
 use App\Models\Type;
 use Illuminate\Database\Seeder;
 
@@ -30,16 +30,6 @@ class DatabaseSeeder extends Seeder
             Type::create($type);
         }
 
-        $roles = [[
-            'title' => 'user'
-        ], [
-            'title' => 'admin'
-        ]];
-
-        foreach ($roles as $role) {
-            Role::create($role);
-        }
-
         $access_modifiers = [[
             'title' => 'public'
         ], [
@@ -53,16 +43,22 @@ class DatabaseSeeder extends Seeder
         }
 
         $expiration_times = [[
+            'title' => '10 минут',
             'volume' => 10
         ], [
+            'title' => '1 час',
             'volume' => 60
         ], [
+            'title' => '3 часа',
             'volume' => 180
         ], [
+            'title' => '1 день',
             'volume' => 1440
         ], [
+            'title' => '1 неделя',
             'volume' => 10080
         ], [
+            'title' => '1 месяц',
             'volume' => 43200
         ]];
 
@@ -77,6 +73,11 @@ class DatabaseSeeder extends Seeder
             'author_id' => 1,
             'access_modifier_id' => 1,
             'expiration_time_id' => 1
+        ]);
+
+        Complaint::create([
+            'body' => 'sdfasdfasdf',
+            'paste_id' => 1
         ]);
     }
 }

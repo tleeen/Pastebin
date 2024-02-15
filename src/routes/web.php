@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\Social\Google\GoogleAuthController;
 use App\Http\Controllers\Auth\Social\Yandex\YandexAuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,14 +46,14 @@ Route::prefix('pastes')
             return view('pastes.create');
         })->name('pastes.create');
 
-        Route::get('/pastes/{id}', function (){
+        Route::get('/id', function (){
             return view('pastes.show');
         })->name('pastes.show');
     });
 
 Route::prefix('users')
     ->group(function (){
-        Route::get('/{id}/pastes', function (){
+        Route::get('/id/pastes', function (){
             return view('users.pastes');
         })->name('users.pastes');
     });
@@ -65,3 +66,8 @@ Route::prefix('complaints')
     });
 
 Auth::routes();
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

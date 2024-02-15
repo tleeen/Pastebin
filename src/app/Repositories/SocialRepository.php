@@ -14,7 +14,7 @@ class SocialRepository implements SocialRepositoryInterface
      */
     public function firstOrCreate(SocialUserDTO $dto): User
     {
-        return User::firstOrCreate(['login' => $dto->login], [
+        return User::firstOrCreate(['email' => $dto->email], [
             'password' => $dto->password
         ]);
     }

@@ -31,7 +31,7 @@ class YandexAuthController extends Controller
     {
         $user = $this
             ->service
-            ->login(SocialUserDTOFactory::fromArray(['login' => Socialite::driver('yandex')
+            ->login(SocialUserDTOFactory::fromArray(['email' => Socialite::driver('yandex')
                 ->user()
                 ->getEmail()]));
         Auth::login($user);

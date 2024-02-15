@@ -24,11 +24,15 @@
                 <h1>Приветствуем в Pastebin!</h1>
                 <p>Сервис для хранения и обмена текстовыми данными.</p>
                 <br>
+                @guest
                 <div class="btn-group">
-                    <a href="{{ route('login') }}" class="btn btn-primary">Авторизироваться</a>
+                    <a href="{{ route('login') }}" class="btn btn-primary">Войти</a>
                     <a href="{{ route('register') }}" class="btn btn-outline-primary">Зарегистрироваться</a>
                     <a href="{{ route('pastes.index') }}" class="btn btn-secondary">Продолжить как гость</a>
                 </div>
+                @else
+                    <a href="{{ route('pastes.index') }}" class="btn btn-primary">Продолжить</a>
+                @endguest
             </div>
         </div>
     </div>

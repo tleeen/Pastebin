@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('pastes', function (Blueprint $table) {
             $table->id();
-            $table->string('hash')->unique();
+//            $table->string('hash')->unique();
             $table->string('title');
             $table->text('body');
             $table->foreignIdFor(Type::class, 'type_id');

@@ -4,6 +4,6 @@ namespace App\DTO;
 
 class SocialUserDTO
 {
-    public string $login;
+    public string $email;
     public string $password;
 }

@@ -6,6 +6,7 @@ use App\DTO\SocialUserDTO;
 use App\Models\User;
 use App\Repositories\Interfaces\SocialRepositoryInterface;
 use App\Services\interfaces\SocialServiceInterface;
+use Illuminate\Support\Facades\Auth;
 
 
 class SocialService implements SocialServiceInterface

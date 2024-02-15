@@ -15,7 +15,7 @@ class SocialUserDTOFactory
     {
         $dto = new SocialUserDTO();
 
-        $dto->login = $data['login'];
+        $dto->email = $data['email'];
         $dto->password = Hash::make('$2y$12$SLN5');
 
         return $dto;

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('expiration_times', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->integer('volume');
             $table->timestamps();
             $table->softDeletes();
