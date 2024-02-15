@@ -17,8 +17,8 @@ class Complaint extends Model
     /**
      * @return BelongsTo
      */
-    public function post(): BelongsTo
+    public function paste(): BelongsTo
     {
-        return $this->belongsTo(Post::class, 'post_id', 'id');
+        return $this->belongsTo(Paste::class, 'post_id', 'id');
     }
 }

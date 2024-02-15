@@ -21,9 +21,9 @@ class User extends Authenticatable
     /**
      * @return HasMany
      */
-    public function posts(): HasMany
+    public function pastes(): HasMany
     {
-        return $this->hasMany(Post::class,'author_id', 'id');
+        return $this->hasMany(Paste::class,'author_id', 'id');
     }
 
     /**

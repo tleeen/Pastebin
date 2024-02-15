@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Access_modifier;
-use App\Models\Expiration_time;
-use App\Models\Post;
+use App\Models\AccessModifier;
+use App\Models\ExpirationTime;
+use App\Models\Paste;
 use App\Models\Role;
 use App\Models\Type;
 use Illuminate\Database\Seeder;
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
         ]];
 
         foreach ($access_modifiers as $access_modifier) {
-            Access_modifier::create($access_modifier);
+            AccessModifier::create($access_modifier);
         }
 
         $expiration_times = [[
@@ -67,10 +67,10 @@ class DatabaseSeeder extends Seeder
         ]];
 
         foreach ($expiration_times as $expiration_time) {
-            Expiration_time::create($expiration_time);
+            ExpirationTime::create($expiration_time);
         }
 
-        Post::create([
+        Paste::create([
             'title' => '1eq',
             'body' => 'wefsdf',
             'type_id' => 1,

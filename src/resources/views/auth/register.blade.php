@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('nav')
-    <a class="nav-link" href="{{ route('posts.all') }}">All Pastes</a>
-    <a class="nav-link" href="{{ route('posts.create') }}">Create Paste</a>
+    <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
+    <a class="nav-link" href="{{ route('pastes.create') }}">Create Paste</a>
 @endsection
 
 @section('content')

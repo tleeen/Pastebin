@@ -33,9 +33,9 @@ class YandexAuthController extends Controller
             ->service
             ->login(SocialUserDTOFactory::fromArray(['login' => Socialite::driver('yandex')
                 ->user()
-                ->getName()]));
+                ->getEmail()]));
         Auth::login($user);
 
-        return redirect()->route('posts.all');
+        return redirect()->route('pastes.index');
     }
 }

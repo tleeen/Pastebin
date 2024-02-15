@@ -1,12 +1,11 @@
 <?php
 
-use App\Models\Access_modifier;
-use App\Models\Expiration_time;
+use App\Models\AccessModifier;
+use App\Models\ExpirationTime;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -16,15 +15,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('pastes', function (Blueprint $table) {
             $table->id();
             $table->string('hash')->unique();
             $table->string('title');
             $table->text('body');
             $table->foreignIdFor(Type::class, 'type_id');
             $table->foreignIdFor(User::class, 'author_id')->nullable();
-            $table->foreignIdFor(Access_modifier::class, 'access_modifier_id');
-            $table->foreignIdFor(Expiration_time::class, 'expiration_time_id');
+            $table->foreignIdFor(AccessModifier::class, 'access_modifier_id');
+            $table->foreignIdFor(ExpirationTime::class, 'expiration_time_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('pastes');
     }
 };

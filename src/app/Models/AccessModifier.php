@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Expiration_time extends Model
+class AccessModifier extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'expiration_times';
+    protected $table = 'access_modifiers';
     protected $guarded = false;
 
     /**
      * @return HasMany
      */
-    public function posts(): HasMany
+    public function pastes(): HasMany
     {
-        return $this->hasMany(Post::class,'expiration_time_id', 'id');
+        return $this->hasMany(Paste::class,'access_modifier_id', 'id');
     }
 }

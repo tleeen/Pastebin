@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Paste extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'posts';
+    protected $table = 'pastes';
     protected $guarded = false;
 
     /**
@@ -30,7 +30,7 @@ class Post extends Model
             function ($post){
             $hashids = new Hashids('ggIKLdf', 8);
             if(!$post->id){
-                $post->id = Post::max('id') + 1;;
+                $post->id = Paste::max('id') + 1;;
             }
             $post->hash = $hashids->encode($post->id); // $hashids->decode($post->hash)[0]
         });
@@ -57,7 +57,7 @@ class Post extends Model
      */
     public function access_modifier(): BelongsTo
     {
-        return $this->belongsTo(Access_modifier::class, 'access_modifier_id', 'id');
+        return $this->belongsTo(AccessModifier::class, 'access_modifier_id', 'id');
     }
 
     /**
@@ -65,7 +65,7 @@ class Post extends Model
      */
     public function expiration_time(): BelongsTo
     {
-        return $this->belongsTo(Expiration_time::class, 'expiration_time_id', 'id');
+        return $this->belongsTo(ExpirationTime::class, 'expiration_time_id', 'id');
     }
 
     /**

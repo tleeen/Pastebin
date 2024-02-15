@@ -35,27 +35,33 @@ Route::prefix('auth')
             });
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-    ->name('home');
+Route::prefix('pastes')
+    ->group(function (){
+        Route::get('/', function (){
+            return view('pastes.index');
+        })->name('pastes.index');
 
-Route::get('/all', function (){
-    return view('posts.all');
-})->name('posts.all');
+        Route::get('/create', function (){
+            return view('pastes.create');
+        })->name('pastes.create');
 
-Route::get('/create', function (){
-    return view('posts.create');
-})->name('posts.create');
+        Route::get('/pastes/{id}', function (){
+            return view('pastes.show');
+        })->name('pastes.show');
+    });
 
-Route::get('/user/posts', function (){
-    return view('posts.user');
-})->name('posts.user');
+Route::prefix('users')
+    ->group(function (){
+        Route::get('/{id}/pastes', function (){
+            return view('users.pastes');
+        })->name('users.pastes');
+    });
 
-Route::get('/posts/index', function (){
-    return view('posts.index');
-})->name('posts.index');
-
-Route::get('/complaints', function (){
-    return view('complaints.create');
-})->name('complaints.create');
+Route::prefix('complaints')
+    ->group(function (){
+        Route::get('/create', function (){
+            return view('complaints.create');
+        })->name('complaints.create');
+    });
 
 Auth::routes();

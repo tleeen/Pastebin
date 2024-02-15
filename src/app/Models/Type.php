@@ -17,8 +17,8 @@ class Type extends Model
     /**
      * @return HasMany
      */
-    public function posts(): HasMany
+    public function pastes(): HasMany
     {
-        return $this->hasMany(Post::class,'type_id', 'id');
+        return $this->hasMany(Paste::class,'type_id', 'id');
     }
 }

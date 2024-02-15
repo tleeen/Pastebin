@@ -35,9 +35,9 @@ class GoogleAuthController extends Controller
             ->service
             ->login(SocialUserDTOFactory::fromArray(['login' => Socialite::driver('google')
                 ->user()
-                ->getName()]));
+                ->getEmail()]));
         Auth::login($user);
 
-        return redirect()->route('posts.all');
+        return redirect()->route('pastes.index');
     }
 }

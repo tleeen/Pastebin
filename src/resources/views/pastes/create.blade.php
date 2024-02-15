@@ -2,11 +2,11 @@
 
 @section('nav')
     @guest
-        <a class="nav-link" href="{{ route('posts.all') }}">All Pastes</a>
+        <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
         <a class="nav-link active" href="#">Create Paste</a>
     @else
-        <a class="nav-link" href="{{ route('posts.all') }}">All Pastes</a>
-        <a class="nav-link" href="{{ route('posts.user') }}">My Pastes</a>
+        <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
+        <a class="nav-link" href="{{ route('users.pastes') }}">My Pastes</a>
         <a class="nav-link active" href="#">Create Paste</a>
     @endguest
 @endsection
@@ -56,7 +56,7 @@
                 <div class="container mb-2">
                     <h5 class="mb-2">Все пасты</h5>
                     <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
-                        <a href="{{ route('posts.index') }}" class="list-group-item list-group-item-action border mb-1">
+                        <a href="{{ route('pastes.show') }}" class="list-group-item list-group-item-action border mb-1">
                             <h6 class="mb-0">Заголовок новости 1</h6>
                             <p class="mb-0 small">Автор: John Doe, Дата публикации: 12.02.2024</p>
                         </a>
@@ -66,7 +66,7 @@
                 <div class="container">
                     <h5 class="mb-2">Мои пасты</h5>
                     <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
-                        <a href="{{ route('posts.index') }}" class="list-group-item list-group-item-action border mb-1">
+                        <a href="{{ route('pastes.show') }}" class="list-group-item list-group-item-action border mb-1">
                             <h6 class="mb-0">Заголовок новости 1</h6>
                             <p class="mb-0 small">Автор: Jane Doe, Дата публикации: 12.02.2024</p>
                         </a>

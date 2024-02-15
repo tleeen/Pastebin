@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Post;
+use App\Models\Paste;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->foreignIdFor(Post::class, 'post_id');
+            $table->foreignIdFor(Paste::class, 'paste_id');
             $table->timestamps();
             $table->softDeletes();
         });
