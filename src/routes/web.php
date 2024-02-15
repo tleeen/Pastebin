@@ -17,12 +17,14 @@ use TCG\Voyager\Facades\Voyager;
 |
 */
 
-Route::get('/', function () {
+Route::middleware('admin')
+    ->get('/', function () {
     return view('welcome');
 });
 
 Route::prefix('auth')
     ->middleware('guest')
+    ->middleware('admin')
     ->group(function (){
         Route::prefix('/google')
             ->group(function (){
@@ -37,6 +39,7 @@ Route::prefix('auth')
 });
 
 Route::prefix('pastes')
+    ->middleware('admin')
     ->group(function (){
         Route::get('/', function (){
             return view('pastes.index');
@@ -52,6 +55,7 @@ Route::prefix('pastes')
     });
 
 Route::prefix('users')
+    ->middleware('admin')
     ->group(function (){
         Route::get('/id/pastes', function (){
             return view('users.pastes');
@@ -59,6 +63,7 @@ Route::prefix('users')
     });
 
 Route::prefix('complaints')
+    ->middleware('admin')
     ->group(function (){
         Route::get('/create', function (){
             return view('complaints.create');
@@ -66,7 +71,6 @@ Route::prefix('complaints')
     });
 
 Auth::routes();
-
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
