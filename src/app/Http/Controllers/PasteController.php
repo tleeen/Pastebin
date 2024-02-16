@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PasteResource;
 use App\Services\interfaces\PasteServiceInterface;
+use App\Utils\HashUtil;
+use Hashids\Hashids;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,7 +22,12 @@ class PasteController extends Controller
      */
     public function index(): \Illuminate\Foundation\Application|View|Factory|Application
     {
-        $pastes = PasteResource::collection($this->service->getAll());
+        $pastes = $this->service->getAll();
+
+        $pastes->transform(function ($paste) {
+            $paste->hash = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
 
         return view('pastes.index', compact('pastes'));
     }
