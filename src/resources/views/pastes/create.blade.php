@@ -2,17 +2,17 @@
 
 @section('nav')
     @guest
-        <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
-        <a class="nav-link active" href="#">Create Paste</a>
+        <a class="nav-link" href="{{ route('pastes.index') }}">Все Пасты</a>
+        <a class="nav-link active" href="#">Создать Пасту</a>
     @else
-        <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
-        <a class="nav-link" href="{{ route('users.pastes') }}">My Pastes</a>
-        <a class="nav-link active" href="#">Create Paste</a>
+        <a class="nav-link" href="{{ route('pastes.index') }}">Все Пасты</a>
+        <a class="nav-link" href="{{ route('users.pastes') }}">Мои Пасты</a>
+        <a class="nav-link active" href="#">Создать Пасту</a>
     @endguest
 @endsection
 
 @section('content')
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-around align-items-center">
             <div class="col-md-5">
                 <div class="d-flex flex-column h-100 justify-content-center">
                     <form class="border p-2 w-70">
@@ -54,8 +54,12 @@
             </div>
             <div class="col-md-5">
                 <div class="container mb-2">
-                    <h5 class="mb-2">Все пасты</h5>
-                    <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
+                    <h5 class="mb-2">Пасты</h5>
+                    @guest
+                        <div class="border p-2 overflow-auto dark-border" style="height: 70vh;">
+                    @else
+                        <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
+                    @endguest
                         <a href="{{ route('pastes.show') }}" class="list-group-item list-group-item-action border mb-1">
                             <h6 class="mb-0">Заголовок новости 1</h6>
                             <p class="mb-0 small">Автор: John Doe, Дата публикации: 12.02.2024</p>
@@ -63,16 +67,19 @@
                         ...
                     </div>
                 </div>
-                <div class="container">
-                    <h5 class="mb-2">Мои пасты</h5>
-                    <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
-                        <a href="{{ route('pastes.show') }}" class="list-group-item list-group-item-action border mb-1">
-                            <h6 class="mb-0">Заголовок новости 1</h6>
-                            <p class="mb-0 small">Автор: Jane Doe, Дата публикации: 12.02.2024</p>
-                        </a>
-                        ...
+                @guest
+                @else
+                    <div class="container">
+                        <h5 class="mb-2">Мои пасты</h5>
+                        <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
+                            <a href="{{ route('pastes.show') }}" class="list-group-item list-group-item-action border mb-1">
+                                <h6 class="mb-0">Заголовок новости 1</h6>
+                                <p class="mb-0 small">Автор: Jane Doe, Дата публикации: 12.02.2024</p>
+                            </a>
+                            ...
+                        </div>
                     </div>
-                </div>
+                @endguest
             </div>
 @endsection
 

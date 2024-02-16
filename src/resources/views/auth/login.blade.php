@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('nav')
-    <a class="nav-link" href="{{ route('pastes.index') }}">All Pastes</a>
-    <a class="nav-link" href="{{ route('pastes.create') }}">Create Paste</a>
+    <a class="nav-link" href="{{ route('pastes.index') }}">Все Пасты</a>
+    <a class="nav-link" href="{{ route('pastes.create') }}">Создать Пасту</a>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">{{ __('Вход') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Пароль') }}</label>
 
                             <div class="col col-md-5">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -64,7 +64,7 @@
                             <div class="col">
                                 <div class="container text-center">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
+                                        {{ __('Войти') }}
                                     </button>
                                 </div>
                             </div>

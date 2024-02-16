@@ -2,12 +2,12 @@
 
 @section('nav')
     @guest
-        <a class="nav-link active" href="#">All Pastes</a>
-        <a class="nav-link" href="{{ route('pastes.create') }}">Create Paste</a>
+        <a class="nav-link active" href="#">Все Пасты</a>
+        <a class="nav-link" href="{{ route('pastes.create') }}">Создать Пасту</a>
     @else
-        <a class="nav-link active" href="#">All Pastes</a>
-        <a class="nav-link" href="{{ route("users.pastes") }}">My Pastes</a>
-        <a class="nav-link" href="{{ route('pastes.create') }}">Create Paste</a>
+        <a class="nav-link active" href="#">Все пасты</a>
+        <a class="nav-link" href="{{ route("users.pastes") }}">Мои Пасты</a>
+        <a class="nav-link" href="{{ route('pastes.create') }}">Создать пасту</a>
     @endguest
 @endsection
 
