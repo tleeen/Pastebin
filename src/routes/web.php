@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\Social\Google\GoogleAuthController;
 use App\Http\Controllers\Auth\Social\Yandex\YandexAuthController;
 use App\Http\Controllers\PasteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
@@ -56,9 +57,8 @@ Route::prefix('pastes')
 Route::prefix('users')
     ->middleware('admin')
     ->group(function (){
-        Route::get('/id/pastes', function (){
-            return view('users.pastes');
-        })->name('users.pastes');
+        Route::get('/{id}/pastes', [UserController::class, 'pastes'])
+            ->name('users.pastes');
     });
 
 Route::prefix('complaints')

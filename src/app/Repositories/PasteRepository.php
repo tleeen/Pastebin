@@ -31,7 +31,7 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function getAllPaginate(): LengthAwarePaginator
     {
-        $userId = (auth()->user()) ? auth()->user()->id : 0;
+        $userId = (auth()->user()) ? auth()->user()->id : null;
 
         $pastes = Paste::whereHas('access_modifier', function ($query) {
             $query->where('title', 'public');
@@ -40,7 +40,7 @@ class PasteRepository implements PasteRepositoryInterface
         })->where('author_id', $userId)
             ->orWhereHas('access_modifier', function ($query) {
                 $query->where('title', 'unlisted ');
-            })->where('author_id', $userId)->paginate(3);
+            })->where('author_id', $userId)->paginate(10);
 
         return $pastes;
     }
