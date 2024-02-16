@@ -14,9 +14,7 @@ class GoogleAuthController extends Controller
     /**
      * @param SocialServiceInterface $service
      */
-    public function __construct(private readonly SocialServiceInterface $service)
-    {
-    }
+    public function __construct(private readonly SocialServiceInterface $service){}
 
     /**
      * @return RedirectResponse

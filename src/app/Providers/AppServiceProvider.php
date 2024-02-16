@@ -6,8 +6,11 @@ use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Repositories\Interfaces\SocialRepositoryInterface;
 use App\Repositories\PasteRepository;
 use App\Repositories\SocialRepository;
+use App\Services\interfaces\PasteServiceInterface;
 use App\Services\interfaces\SocialServiceInterface;
+use App\Services\PasteService;
 use App\Services\SocialService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
             PasteRepositoryInterface::class,
             PasteRepository::class
         );
+
+        $this->app->bind(
+            PasteServiceInterface::class,
+            PasteService::class
+        );
     }
 
     /**
@@ -38,6 +46,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::defaultView('vendor.pagination.bootstrap-5');
     }
 }
