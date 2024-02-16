@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -30,7 +31,12 @@ class PasteService implements PasteServiceInterface
 
     }
 
-    public function getById(){
-
+    /**
+     * @param string $id
+     * @return Paste
+     */
+    public function getById(string $id): Paste
+    {
+        return $this->repository->getById($id);
     }
 }

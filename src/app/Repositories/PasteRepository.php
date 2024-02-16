@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -44,5 +43,10 @@ class PasteRepository implements PasteRepositoryInterface
             })->where('author_id', $userId)->paginate(3);
 
         return $pastes;
+    }
+
+    public function getById(string $id): Paste
+    {
+        return Paste::find($id);
     }
 }

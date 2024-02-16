@@ -49,9 +49,8 @@ Route::prefix('pastes')
             return view('pastes.create');
         })->name('pastes.create');
 
-        Route::get('/id', function (){
-            return view('pastes.show');
-        })->name('pastes.show');
+        Route::get('/{id}', [PasteController::class, 'show'])
+            ->name('pastes.show');
     });
 
 Route::prefix('users')
