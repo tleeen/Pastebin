@@ -2,12 +2,19 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Paste;
+use App\Repositories\Interfaces\PasteRepositoryInterface;
 use DateInterval;
 use Illuminate\Console\Command;
 
 class CleanExpiredPaste extends Command
 {
+    /**
+     * @param PasteRepositoryInterface $repository
+     */
+    public function __construct(private readonly PasteRepositoryInterface $repository){
+        parent::__construct();
+    }
+
     /**
      * The name and signature of the console command.
      *
@@ -27,7 +34,7 @@ class CleanExpiredPaste extends Command
      */
     public function handle(): void
     {
-        $pastes = Paste::all();
+        $pastes = $this->repository->getAll();
 
         foreach ($pastes as $paste) {
 
@@ -38,7 +45,7 @@ class CleanExpiredPaste extends Command
                 $time = $created_at->add(new DateInterval('PT' . $expire . 'M'));
 
                 if($time < now()) {
-                    $paste->delete();
+                    $this->repository->delete($paste->id);
                 }
             } catch (\Exception $e) {}
         }

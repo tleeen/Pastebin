@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Repositories\Interfaces\SocialRepositoryInterface;
+use App\Repositories\PasteRepository;
 use App\Repositories\SocialRepository;
 use App\Services\interfaces\SocialServiceInterface;
 use App\Services\SocialService;
@@ -23,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             SocialServiceInterface::class,
             SocialService::class
+        );
+
+        $this->app->bind(
+            PasteRepositoryInterface::class,
+            PasteRepository::class
         );
     }
 
