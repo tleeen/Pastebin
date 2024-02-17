@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Paste\StoreRequest;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Utils\HashUtil;
 use Illuminate\Contracts\View\View;
@@ -28,6 +29,11 @@ class PasteController extends Controller
 
         return view('pastes.index', compact('pastes'));
     }
+
+    /**
+     * @param string $hash
+     * @return View
+     */
     public function show(string $hash): View
     {
         $id = HashUtil::decipher($hash);
@@ -39,6 +45,9 @@ class PasteController extends Controller
         return view('pastes.show', compact('paste'));
     }
 
+    /**
+     * @return Collection
+     */
     public function last(): Collection
     {
         $pastes = $this->service->getLast();
@@ -49,5 +58,18 @@ class PasteController extends Controller
         });
 
         return $pastes;
+    }
+
+    /**
+     * @param StoreRequest $request
+     * @return View
+     */
+    public function store(StoreRequest $request): View
+    {
+        $dto = $request->getDto();
+
+        $paste = $this->service->store($dto);
+
+        return view('ok', compact('paste'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\PasteDTO;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
@@ -23,14 +24,21 @@ class PasteService implements PasteServiceInterface
         return $this->repository->getAllPaginate();
     }
 
+    /**
+     * @return Collection
+     */
     public function getLast(): Collection
     {
         return $this->repository->getLast();
     }
 
-    public function create()
+    /**
+     * @param PasteDTO $DTO
+     * @return Paste
+     */
+    public function store(PasteDTO $DTO): Paste
     {
-
+        return $this->repository->store($DTO);
     }
 
     /**

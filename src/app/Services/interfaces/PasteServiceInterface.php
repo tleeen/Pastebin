@@ -2,6 +2,7 @@
 
 namespace App\Services\interfaces;
 
+use App\DTO\PasteDTO;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -23,4 +24,10 @@ interface PasteServiceInterface
      * @return Collection
      */
     public function getLast(): Collection;
+
+    /**
+     * @param PasteDTO $DTO
+     * @return Paste
+     */
+    public function store(PasteDTO $DTO): Paste;
 }

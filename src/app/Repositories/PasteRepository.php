@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\DTO\PasteDTO;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,14 +34,14 @@ class PasteRepository implements PasteRepositoryInterface
     {
         $userId = (auth()->user()) ? auth()->user()->id : null;
 
-        return Paste::whereHas('access_modifier', function ($query) {
-            $query->where('title', 'public');
-        })->orWhereHas('access_modifier', function ($query) {
-            $query->where('title', 'private');
-        })->where('author_id', $userId)
-            ->orWhereHas('access_modifier', function ($query) {
-                $query->where('title', 'unlisted ');
-            })->where('author_id', $userId)->paginate(10);
+        return Paste::whereHas('access_modifier', function ($query) {$query
+                ->where('title', 'public');})
+            ->orWhereHas('access_modifier', function ($query) {$query
+                ->where('title', 'private');})
+            ->where('author_id', $userId)
+            ->orWhereHas('access_modifier', function ($query) {$query
+                    ->where('title', 'unlisted ');})
+            ->where('author_id', $userId)->paginate(10);
     }
 
     /**
@@ -67,5 +68,23 @@ class PasteRepository implements PasteRepositoryInterface
             ->orWhereHas('access_modifier', function ($query) {
                 $query->where('title', 'unlisted ');
             })->where('author_id', $userId)->latest()->take(10)->get();
+    }
+
+    /**
+     * @param PasteDTO $DTO
+     * @return Paste
+     */
+    public function store(PasteDTO $DTO): Paste
+    {
+        $userId = (auth()->user()) ? auth()->user()->id : null;
+
+        return Paste::create([
+            'title' => $DTO->title,
+            'body' => $DTO->body,
+            'type_id' => $DTO->typeId,
+            'access_modifier_id' => $DTO->accessModifierId,
+            'expiration_time_id' => $DTO->expirationTimeId,
+            'author_id' => $userId
+        ]);
     }
 }

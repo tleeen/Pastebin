@@ -15,48 +15,49 @@
         <div class="d-flex justify-content-around align-items-center">
             <div class="col-md-5">
                 <div class="d-flex flex-column h-100 justify-content-center">
-                    <form class="border p-2 w-70">
+                    <form class="border p-2 w-70" action="{{route('pastes.store')}}" method="post">
+                        @csrf
                         <div class="form-group mb-4">
                             <label for="title">Заголовок</label>
-                            <input type="text" class="form-control" id="title" placeholder="Введите заголовок">
+                            <input name="title" type="text" class="form-control" id="title" placeholder="Введите заголовок">
                         </div>
                         <div class="form-group mb-4">
                             <label for="code">Текст:</label>
-                            <textarea class="form-control" id="code" rows="10" style="font-family: monospace;"></textarea>
+                            <textarea name="body" class="form-control" id="code" rows="10" style="font-family: monospace;"></textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="time">Время:</label>
-                                <select class="form-control" id="time">
+                                <select class="form-control" id="time" name="expirationTimeId">
                                     @foreach($expirationTimes as $index => $expirationTime)
                                         @if($index === 0)
-                                            <option value="1" style="text-align: center;" selected>{{$expirationTime->title}}</option>
+                                            <option value="{{$expirationTime->id}}" style="text-align: center;" selected>{{$expirationTime->title}}</option>
                                         @else
-                                            <option value="2" style="text-align: center;">{{$expirationTime->title}}</option>
+                                            <option value="{{$expirationTime->id}}" style="text-align: center;">{{$expirationTime->title}}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="type">Тип:</label>
-                                <select class="form-control" id="type">
+                                <select class="form-control" id="type" name="typeId">
                                     @foreach($types as $index => $type)
                                         @if($index === 0)
-                                            <option value="1" style="text-align: center;" selected>{{$type->title}}</option>
+                                            <option value="{{$type->id}}" style="text-align: center;" selected>{{$type->title}}</option>
                                         @else
-                                            <option value="2" style="text-align: center;">{{$type->title}}</option>
+                                            <option value="{{$type->id}}" style="text-align: center;">{{$type->title}}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="restriction">Ограничение:</label>
-                                <select class="form-control" id="restriction">
+                                <select class="form-control" id="restriction" name="accessModifierId">
                                     @foreach($accessModifiers as $index => $accessModifier)
                                         @if($index === 0)
-                                            <option value="1" style="text-align: center;" selected>{{$accessModifier->title}}</option>
+                                            <option value="{{$accessModifier->id}}" style="text-align: center;" selected>{{$accessModifier->title}}</option>
                                         @else
-                                            <option value="2" style="text-align: center;">{{$accessModifier->title}}</option>
+                                            <option value="{{$accessModifier->id}}" style="text-align: center;">{{$accessModifier->title}}</option>
                                         @endif
                                     @endforeach
                                 </select>

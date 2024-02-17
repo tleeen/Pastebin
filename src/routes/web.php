@@ -27,6 +27,11 @@ Route::middleware('admin')
     return view('welcome');
 });
 
+Route::middleware('admin')
+    ->get('/ok', function () {
+        return view('ok');
+    });
+
 Route::prefix('auth')
     ->middleware('guest')
     ->middleware('admin')
@@ -73,6 +78,9 @@ Route::prefix('pastes')
 
         Route::get('/{id}', [PasteController::class, 'show'])
             ->name('pastes.show');
+
+        Route::post('/store', [PasteController::class, 'store'])
+            ->name('pastes.store');
     });
 
 Route::prefix('users')

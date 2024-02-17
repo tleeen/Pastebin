@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories\Interfaces;
+use App\DTO\PasteDTO;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -29,5 +30,14 @@ interface PasteRepositoryInterface
      */
     public function getById(string $id): Paste;
 
+    /**
+     * @return Collection
+     */
     public function getLast(): Collection;
+
+    /**
+     * @param PasteDTO $DTO
+     * @return Paste
+     */
+    public function store(PasteDTO $DTO): Paste;
 }
