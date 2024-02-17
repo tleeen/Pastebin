@@ -5,8 +5,10 @@ namespace App\Repositories;
 use App\DTO\PasteDTO;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class PasteRepository implements PasteRepositoryInterface
 {
@@ -32,16 +34,8 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function getAllPaginate(): LengthAwarePaginator
     {
-        $userId = (auth()->user()) ? auth()->user()->id : null;
-
-        return Paste::whereHas('access_modifier', function ($query) {$query
-                ->where('title', 'public');})
-            ->orWhereHas('access_modifier', function ($query) {$query
-                ->where('title', 'private');})
-            ->where('author_id', $userId)
-            ->orWhereHas('access_modifier', function ($query) {$query
-                    ->where('title', 'unlisted ');})
-            ->where('author_id', $userId)->paginate(10);
+        return $this::rules()
+            ->paginate(10);
     }
 
     /**
@@ -50,7 +44,8 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function getById(string $id): Paste
     {
-        return Paste::find($id);
+        return $this::rules()
+            ->find($id);
     }
 
     /**
@@ -58,16 +53,10 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function getLast(): Collection
     {
-        $userId = (auth()->user()) ? auth()->user()->id : null;
-
-        return Paste::whereHas('access_modifier', function ($query) {
-            $query->where('title', 'public');
-        })->orWhereHas('access_modifier', function ($query) {
-            $query->where('title', 'private');
-        })->where('author_id', $userId)
-            ->orWhereHas('access_modifier', function ($query) {
-                $query->where('title', 'unlisted ');
-            })->where('author_id', $userId)->latest()->take(10)->get();
+        return $this::rules()
+            ->latest()
+            ->take(10)
+            ->get();
     }
 
     /**
@@ -86,5 +75,25 @@ class PasteRepository implements PasteRepositoryInterface
             'expiration_time_id' => $DTO->expirationTimeId,
             'author_id' => $userId
         ]);
+    }
+
+    public static function rules(): Builder
+    {
+        $userId = (auth()->user()) ? auth()->user()->id : null;
+
+        return Paste::join('expiration_times', 'pastes.expiration_time_id', '=', 'expiration_times.id')
+            ->where('pastes.created_at', '>', DB::raw('now() - INTERVAL expiration_times.volume MINUTE - INTERVAL 7 HOUR'))
+            ->select('pastes.*')
+            ->where(function ($query) use ($userId){
+                $query->whereHas('access_modifier', function ($query) use ($userId){
+                    $query->where('title', 'public');})
+                    ->orWhere('author_id', $userId)
+                    ->where(function ($query){
+                        $query->WhereHas('access_modifier', function ($query) {
+                            $query->where('title', 'private');})
+                            ->orWhereHas('access_modifier', function ($query) {
+                                $query->where('title', 'unlisted ');});
+                    });
+            });
     }
 }

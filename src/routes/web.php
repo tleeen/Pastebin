@@ -39,12 +39,16 @@ Route::prefix('auth')
     ->group(function (){
         Route::prefix('/google')
             ->group(function (){
-                Route::get('/', [GoogleAuthController::class, 'showLoginForm'])->name('auth.google');
+                Route::get('/', [GoogleAuthController::class, 'showLoginForm'])
+                    ->name('auth.google');
+
                 Route::get('/callback', [GoogleAuthController::class, 'login']);
             });
         Route::prefix('/yandex')
             ->group(function (){
-                Route::get('/', [YandexAuthController::class, 'showLoginForm'])->name('auth.yandex');
+                Route::get('/', [YandexAuthController::class, 'showLoginForm'])
+                    ->name('auth.yandex');
+
                 Route::get('/callback', [YandexAuthController::class, 'login']);
             });
 });
@@ -59,9 +63,6 @@ Route::prefix('pastes')
             $pasteController = app()->make(PasteController::class);
             $lastPastes = $pasteController->last();
 
-            $userController = app()->make(UserController::class);
-            $lastPastesUser = (auth()->user()) ? $userController->lastPastes(auth()->user()->id) : null;
-
             $typeController = app()->make(TypeController::class);
             $types = $typeController->index();
 
@@ -71,8 +72,16 @@ Route::prefix('pastes')
             $expirationTimeController = app()->make(ExpirationTimeController::class);
             $expirationTimes = $expirationTimeController->index();
 
-            return view('pastes.create', compact('lastPastes', 'lastPastesUser', 'types', 'accessModifiers', 'expirationTimes'));
-        })->name('pastes.create');
+            $userController = app()->make(UserController::class);
+            $lastPastesUser = (auth()->user()) ? $userController->lastPastes(auth()->user()->id) : null;
+
+            return view('pastes.create', compact(
+                'lastPastes',
+                'lastPastesUser',
+                'types',
+                'accessModifiers',
+                'expirationTimes'));})
+            ->name('pastes.create');
 
         Route::get('/{id}', [PasteController::class, 'show'])
             ->name('pastes.show');
@@ -90,7 +99,8 @@ Route::prefix('pastes')
                     return view('complaints.create', compact('paste'));
                 })->name('complaints.create');
 
-                Route::post('/store', [ComplaintController::class, 'store'])->name('complaints.store');
+                Route::post('/store', [ComplaintController::class, 'store'])
+                    ->name('complaints.store');
             });
     });
 
@@ -100,16 +110,6 @@ Route::prefix('users')
         Route::get('/{id}/pastes', [UserController::class, 'pastes'])
             ->name('users.pastes');
     });
-
-//Route::prefix('complaints')
-//    ->middleware('admin')
-//    ->group(function (){
-//        Route::post('/store', [ComplaintController::class, 'store'])->name('complaints.store');
-//
-//        Route::get('/create', function (){
-//            return view('complaints.create');
-//        })->name('complaints.create');
-//    });
 
 Auth::routes();
 
