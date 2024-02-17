@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Paste;
+namespace App\Http\Requests\Complaints;
 
-use App\DTO\Factories\PasteDTOFactory;
-use App\DTO\PasteDTO;
+use App\DTO\ComplaintDTO;
+use App\DTO\Factories\ComplaintDTOFactory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -24,19 +24,16 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
             'body' => 'required|string',
-            'typeId' => 'required|integer',
-            'accessModifierId' => 'required|integer',
-            'expirationTimeId' => 'required|integer',
+            'id' => 'required|string',
         ];
     }
 
     /**
-     * @return PasteDTO
+     * @return ComplaintDTO
      */
-    public function getDto(): PasteDTO
+    public function getDto(): ComplaintDTO
     {
-        return PasteDTOFactory::fromRequest($this);
+        return ComplaintDTOFactory::fromRequest($this);
     }
 }

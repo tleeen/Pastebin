@@ -34,11 +34,11 @@ class PasteService implements PasteServiceInterface
 
     /**
      * @param PasteDTO $DTO
-     * @return Paste
+     * @return void
      */
-    public function store(PasteDTO $DTO): Paste
+    public function store(PasteDTO $DTO): void
     {
-        return $this->repository->store($DTO);
+        $this->repository->store($DTO);
     }
 
     /**

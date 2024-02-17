@@ -27,7 +27,7 @@ interface PasteServiceInterface
 
     /**
      * @param PasteDTO $DTO
-     * @return Paste
+     * @return void
      */
-    public function store(PasteDTO $DTO): Paste;
+    public function store(PasteDTO $DTO): void;
 }

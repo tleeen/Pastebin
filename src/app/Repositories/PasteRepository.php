@@ -72,13 +72,13 @@ class PasteRepository implements PasteRepositoryInterface
 
     /**
      * @param PasteDTO $DTO
-     * @return Paste
+     * @return void
      */
-    public function store(PasteDTO $DTO): Paste
+    public function store(PasteDTO $DTO): void
     {
         $userId = (auth()->user()) ? auth()->user()->id : null;
 
-        return Paste::create([
+        Paste::create([
             'title' => $DTO->title,
             'body' => $DTO->body,
             'type_id' => $DTO->typeId,

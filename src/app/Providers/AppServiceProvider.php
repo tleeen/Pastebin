@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Repositories\AccessModifierRepository;
+use App\Repositories\ComplaintRepository;
 use App\Repositories\ExpirationTimeRepository;
 use App\Repositories\Interfaces\AccessModifierRepositoryInterface;
+use App\Repositories\Interfaces\ComplaintRepositoryInterface;
 use App\Repositories\Interfaces\ExpirationTimeRepositoryInterface;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Repositories\Interfaces\SocialRepositoryInterface;
@@ -15,8 +17,10 @@ use App\Repositories\SocialRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\UserRepository;
 use App\Services\AccessModifierService;
+use App\Services\ComplaintService;
 use App\Services\ExpirationTimeService;
 use App\Services\interfaces\AccessModifierServiceInterface;
+use App\Services\interfaces\ComplaintServiceInterface;
 use App\Services\interfaces\ExpirationTimeServiceInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Services\interfaces\SocialServiceInterface;
@@ -94,6 +98,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ExpirationTimeServiceInterface::class,
             ExpirationTimeService::class
+        );
+
+        $this->app->bind(
+            ComplaintRepositoryInterface::class,
+            ComplaintRepository::class
+        );
+
+        $this->app->bind(
+            ComplaintServiceInterface::class,
+            ComplaintService::class
         );
     }
 

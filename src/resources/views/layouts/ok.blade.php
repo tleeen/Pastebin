@@ -13,6 +13,6 @@
 
 @section('content')
     <div class="container mt-5">
-        <h1>Паста "{{$paste->title}}" успешно создана</h1>
+        @yield('content')
     </div>
 @endsection

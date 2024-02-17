@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccessModifierController;
 use App\Http\Controllers\Auth\Social\Google\GoogleAuthController;
 use App\Http\Controllers\Auth\Social\Yandex\YandexAuthController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ExpirationTimeController;
 use App\Http\Controllers\PasteController;
 use App\Http\Controllers\TypeController;
@@ -59,10 +60,7 @@ Route::prefix('pastes')
             $lastPastes = $pasteController->last();
 
             $userController = app()->make(UserController::class);
-            $lastPastesUser = null;
-            if(auth()->user()){
-                $lastPastesUser = $userController->lastPastes(auth()->user()->id);
-            }
+            $lastPastesUser = (auth()->user()) ? $userController->lastPastes(auth()->user()->id) : null;
 
             $typeController = app()->make(TypeController::class);
             $types = $typeController->index();
@@ -81,6 +79,19 @@ Route::prefix('pastes')
 
         Route::post('/store', [PasteController::class, 'store'])
             ->name('pastes.store');
+
+        Route::prefix('/{id}/complaints')
+            ->group(function (){
+                Route::get('/create', function (string $id){
+
+                    $pasteController = app()->make(PasteController::class);
+                    $paste = $pasteController->getById($id);
+
+                    return view('complaints.create', compact('paste'));
+                })->name('complaints.create');
+
+                Route::post('/store', [ComplaintController::class, 'store'])->name('complaints.store');
+            });
     });
 
 Route::prefix('users')
@@ -90,13 +101,15 @@ Route::prefix('users')
             ->name('users.pastes');
     });
 
-Route::prefix('complaints')
-    ->middleware('admin')
-    ->group(function (){
-        Route::get('/create', function (){
-            return view('complaints.create');
-        })->name('complaints.create');
-    });
+//Route::prefix('complaints')
+//    ->middleware('admin')
+//    ->group(function (){
+//        Route::post('/store', [ComplaintController::class, 'store'])->name('complaints.store');
+//
+//        Route::get('/create', function (){
+//            return view('complaints.create');
+//        })->name('complaints.create');
+//    });
 
 Auth::routes();
 

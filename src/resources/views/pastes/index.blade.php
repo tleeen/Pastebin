@@ -5,9 +5,9 @@
         <a class="nav-link active" href="#">Все Пасты</a>
         <a class="nav-link" href="{{ route('pastes.create') }}">Создать Пасту</a>
     @else
-        <a class="nav-link active" href="#">Все пасты</a>
+        <a class="nav-link active" href="#">Все Пасты</a>
         <a class="nav-link" href="{{ route("users.pastes", auth()->user()->id) }}">Мои Пасты</a>
-        <a class="nav-link" href="{{ route('pastes.create') }}">Создать пасту</a>
+        <a class="nav-link" href="{{ route('pastes.create') }}">Создать Пасту</a>
     @endguest
 @endsection
 

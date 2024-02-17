@@ -19,13 +19,15 @@
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    **Название поста:**
+                    {{$paste->title}}
                     <span id="post-title"></span>
                 </p>
-                <form id="complaint-form">
+                <form id="complaint-form" action="{{route('complaints.store', $paste->hash_id)}}" method="post">
+                    @csrf
                     <div class="mb-3">
                         <label for="complaint-text" class="form-label">Текст жалобы:</label>
-                        <textarea class="form-control" id="complaint-text" rows="5" style="font-size: 16px;"></textarea>
+                        <textarea name="body" class="form-control" id="complaint-text" rows="5" style="font-size: 16px;"></textarea>
+                        <input type="hidden" name="id" value="{{ $paste->hash_id }}">
                     </div>
                     <button type="submit" class="btn btn-primary">Отправить</button>
                 </form>

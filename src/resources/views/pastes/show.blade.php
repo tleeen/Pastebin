@@ -46,7 +46,7 @@
                     </small>
                     <small class="text-muted" style="font-size: 14px;">Автор: <b style="font-size: 14px;">{{(!$paste->author) ? 'undefined' : $paste->author->email}}</b></small>
                 </div>
-                <a href="{{ route('complaints.create') }}" class="btn btn-sm btn-danger mt-2" style="font-size: 14px;">Пожаловаться</a>
+                <a href="{{ route('complaints.create', $paste->hash_id) }}" class="btn btn-sm btn-danger mt-2" style="font-size: 14px;">Пожаловаться</a>
             </div>
         </div>
     </div>
