@@ -28,4 +28,6 @@ interface PasteRepositoryInterface
      * @return Paste
      */
     public function getById(string $id): Paste;
+
+    public function getLast(): Collection;
 }

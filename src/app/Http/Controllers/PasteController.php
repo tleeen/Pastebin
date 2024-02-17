@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Paste\ShowRequest;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Utils\HashUtil;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 
 class PasteController extends Controller
 {
@@ -39,5 +37,17 @@ class PasteController extends Controller
         $paste->hash_id = HashUtil::encrypt($paste->id);
 
         return view('pastes.show', compact('paste'));
+    }
+
+    public function last(): Collection
+    {
+        $pastes = $this->service->getLast();
+
+        $pastes->transform(function ($paste) {
+            $paste->hash_id = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
+
+        return $pastes;
     }
 }

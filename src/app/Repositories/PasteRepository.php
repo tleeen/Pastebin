@@ -33,7 +33,7 @@ class PasteRepository implements PasteRepositoryInterface
     {
         $userId = (auth()->user()) ? auth()->user()->id : null;
 
-        $pastes = Paste::whereHas('access_modifier', function ($query) {
+        return Paste::whereHas('access_modifier', function ($query) {
             $query->where('title', 'public');
         })->orWhereHas('access_modifier', function ($query) {
             $query->where('title', 'private');
@@ -41,12 +41,27 @@ class PasteRepository implements PasteRepositoryInterface
             ->orWhereHas('access_modifier', function ($query) {
                 $query->where('title', 'unlisted ');
             })->where('author_id', $userId)->paginate(10);
-
-        return $pastes;
     }
 
     public function getById(string $id): Paste
     {
         return Paste::find($id);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLast(): Collection
+    {
+        $userId = (auth()->user()) ? auth()->user()->id : null;
+
+        return Paste::whereHas('access_modifier', function ($query) {
+            $query->where('title', 'public');
+        })->orWhereHas('access_modifier', function ($query) {
+            $query->where('title', 'private');
+        })->where('author_id', $userId)
+            ->orWhereHas('access_modifier', function ($query) {
+                $query->where('title', 'unlisted ');
+            })->where('author_id', $userId)->latest()->take(10)->get();
     }
 }

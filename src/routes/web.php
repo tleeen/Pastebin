@@ -47,7 +47,9 @@ Route::prefix('pastes')
         ->name('pastes.index');
 
         Route::get('/create', function (){
-            return view('pastes.create');
+            $pasteController = app()->make(PasteController::class);
+            $lastPastes = $pasteController->last();
+            return view('pastes.create', compact('lastPastes'));
         })->name('pastes.create');
 
         Route::get('/{id}', [PasteController::class, 'show'])

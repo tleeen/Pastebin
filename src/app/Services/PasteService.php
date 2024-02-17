@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class PasteService implements PasteServiceInterface
@@ -22,12 +23,13 @@ class PasteService implements PasteServiceInterface
         return $this->repository->getAllPaginate();
     }
 
-    public function getLast()
+    public function getLast(): Collection
     {
-
+        return $this->repository->getLast();
     }
 
-    public function create(){
+    public function create()
+    {
 
     }
 

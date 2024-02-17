@@ -56,15 +56,16 @@
                 <div class="container mb-2">
                     <h5 class="mb-2">Пасты</h5>
                     @guest
-                        <div class="border p-2 overflow-auto dark-border" style="height: 70vh;">
+                        <div class="border p-2 overflow-auto dark-border" style="height: 65vh;">
                     @else
                         <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
                     @endguest
-                        <a href="{{ route('pastes.show') }}" class="list-group-item list-group-item-action border mb-1">
-                            <h6 class="mb-0">Заголовок новости 1</h6>
-                            <p class="mb-0 small">Автор: John Doe, Дата публикации: 12.02.2024</p>
+                            @foreach($lastPastes as $lastPaste)
+                        <a href="{{ route('pastes.show', $lastPaste->hash_id) }}" class="list-group-item list-group-item-action border mb-1">
+                            <h6 class="mb-0">{{$lastPaste->title}}</h6>
+                            <p class="mb-0 small">Автор: {{$lastPaste->author->email}}, Дата публикации: {{$lastPaste->created_at->format('d-m-Y H:i')}}</p>
                         </a>
-                        ...
+                            @endforeach
                     </div>
                 </div>
                 @guest
@@ -72,7 +73,7 @@
                     <div class="container">
                         <h5 class="mb-2">Мои пасты</h5>
                         <div class="border p-2 overflow-auto dark-border" style="height: 35vh;">
-                            <a href="{{ route('pastes.show') }}" class="list-group-item list-group-item-action border mb-1">
+                            <a href="#" class="list-group-item list-group-item-action border mb-1">
                                 <h6 class="mb-0">Заголовок новости 1</h6>
                                 <p class="mb-0 small">Автор: Jane Doe, Дата публикации: 12.02.2024</p>
                             </a>
