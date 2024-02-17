@@ -13,14 +13,14 @@
                 <div class="col-md-6 mb-2 mx-auto">
                     <a href="{{ route('pastes.show', $paste->hash_id) }}" class="list-group-item list-group-item-action border mb-2">
                         <h6 class="mb-0">{{$paste->title}}</h6>
-                        <p class="mb-0 small">Автор: {{$paste->author->email}},    Дата публикации: {{$paste->created_at->format('d-m-Y H:i')}}</p>
+                        <p class="mb-0 small">Автор: {{(!$paste->author) ? 'undefined' : $paste->author->email}},    Дата публикации: {{$paste->created_at->format('d-m-Y H:i')}}</p>
                     </a>
                 </div>
             @else
                 <div class="col-md-6 mb-2">
                     <a href="{{ route('pastes.show', $paste->hash_id) }}" class="list-group-item list-group-item-action border mb-2 dark-border">
                         <h6 class="mb-0">{{$paste->title}}</h6>
-                        <p class="mb-0 small">Автор: {{$paste->author->email}},    Дата публикации: {{$paste->created_at->format('d-m-Y H:i')}}</p>
+                        <p class="mb-0 small">Автор: {{(!$paste->author) ? 'undefined' : $paste->author->email}},    Дата публикации: {{$paste->created_at->format('d-m-Y H:i')}}</p>
                     </a>
                 </div>
             @endif

@@ -63,7 +63,7 @@
                             @foreach($lastPastes as $lastPaste)
                         <a href="{{ route('pastes.show', $lastPaste->hash_id) }}" class="list-group-item list-group-item-action border mb-1">
                             <h6 class="mb-0">{{$lastPaste->title}}</h6>
-                            <p class="mb-0 small">Автор: {{$lastPaste->author->email}}, Дата публикации: {{$lastPaste->created_at->format('d-m-Y H:i')}}</p>
+                            <p class="mb-0 small">Автор: {{(!$lastPaste->author) ? 'undefined' : $lastPaste->author->email}}, Дата публикации: {{$lastPaste->created_at->format('d-m-Y H:i')}}</p>
                         </a>
                             @endforeach
                     </div>
@@ -76,7 +76,7 @@
                             @foreach($lastPastesUser as $lastPasteUser)
                                 <a href="{{ route('pastes.show', $lastPasteUser->hash_id) }}" class="list-group-item list-group-item-action border mb-1">
                                     <h6 class="mb-0">{{$lastPasteUser->title}}</h6>
-                                    <p class="mb-0 small">Автор: {{$lastPasteUser->author->email}}, Дата публикации: {{$lastPasteUser->created_at->format('d-m-Y H:i')}}</p>
+                                    <p class="mb-0 small">Автор: {{(!$lastPasteUser->author) ? 'undefined' : $lastPasteUser->author->email}}, Дата публикации: {{$lastPasteUser->created_at->format('d-m-Y H:i')}}</p>
                                 </a>
                             @endforeach
                         </div>
