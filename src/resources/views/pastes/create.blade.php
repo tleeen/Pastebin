@@ -36,8 +36,13 @@
                             <div class="col-md-4">
                                 <label for="type">Тип:</label>
                                 <select class="form-control" id="type">
-                                    <option value="public" style="text-align: center;" selected>Публичный</option>
-                                    <option value="private" style="text-align: center;">Приватный</option>
+                                    @foreach($types as $index => $type)
+                                        @if($index === 0)
+                                            <option value="1" style="text-align: center;" selected>{{$type->title}}</option>
+                                        @else
+                                            <option value="2" style="text-align: center;">{{$type->title}}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4">

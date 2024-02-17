@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\Social\Google\GoogleAuthController;
 use App\Http\Controllers\Auth\Social\Yandex\YandexAuthController;
 use App\Http\Controllers\PasteController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -56,7 +57,10 @@ Route::prefix('pastes')
                 $lastPastesUser = $userController->lastPastes(auth()->user()->id);
             }
 
-            return view('pastes.create', compact('lastPastes', 'lastPastesUser'));
+            $typeController = app()->make(TypeController::class);
+            $types = $typeController->index();
+
+            return view('pastes.create', compact('lastPastes', 'lastPastesUser', 'types'));
         })->name('pastes.create');
 
         Route::get('/{id}', [PasteController::class, 'show'])

@@ -43,6 +43,10 @@ class PasteRepository implements PasteRepositoryInterface
             })->where('author_id', $userId)->paginate(10);
     }
 
+    /**
+     * @param string $id
+     * @return Paste
+     */
     public function getById(string $id): Paste
     {
         return Paste::find($id);
