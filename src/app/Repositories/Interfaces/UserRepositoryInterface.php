@@ -2,9 +2,20 @@
 
 namespace App\Repositories\Interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 interface UserRepositoryInterface
 {
-    public function getAllPaginatePastes(string $id);
+    /**
+     * @param string $id
+     * @return LengthAwarePaginator
+     */
+    public function getAllPaginatePastes(string $id): LengthAwarePaginator;
 
-    public function getLastPastes(string $id);
+    /**
+     * @param string $id
+     * @return Collection
+     */
+    public function getLastPastes(string $id): Collection;
 }

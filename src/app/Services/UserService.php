@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\SocialRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\interfaces\UserServiceInterface;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService implements UserServiceInterface
 {
@@ -13,12 +14,21 @@ class UserService implements UserServiceInterface
      * @param UserRepositoryInterface $repository
      */
     public function __construct(private readonly UserRepositoryInterface $repository){}
-    public function getAllPastes(string $id)
+
+    /**
+     * @param string $id
+     * @return LengthAwarePaginator
+     */
+    public function getAllPastes(string $id): LengthAwarePaginator
     {
         return $this->repository->getAllPaginatePastes($id);
     }
 
-    public function getLastPastes(string $id)
+    /**
+     * @param string $id
+     * @return Collection
+     */
+    public function getLastPastes(string $id): Collection
     {
         return $this->repository->getLastPastes($id);
     }

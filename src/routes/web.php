@@ -49,7 +49,14 @@ Route::prefix('pastes')
         Route::get('/create', function (){
             $pasteController = app()->make(PasteController::class);
             $lastPastes = $pasteController->last();
-            return view('pastes.create', compact('lastPastes'));
+
+            $userController = app()->make(UserController::class);
+            $lastPastesUser = null;
+            if(auth()->user()){
+                $lastPastesUser = $userController->lastPastes(auth()->user()->id);
+            }
+
+            return view('pastes.create', compact('lastPastes', 'lastPastesUser'));
         })->name('pastes.create');
 
         Route::get('/{id}', [PasteController::class, 'show'])

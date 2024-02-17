@@ -2,8 +2,20 @@
 
 namespace App\Services\interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 interface UserServiceInterface
 {
-    public function getAllPastes(string $id);
-    public function getLastPastes(string $id);
+    /**
+     * @param string $id
+     * @return LengthAwarePaginator
+     */
+    public function getAllPastes(string $id): LengthAwarePaginator;
+
+    /**
+     * @param string $id
+     * @return Collection
+     */
+    public function getLastPastes(string $id): Collection;
 }
