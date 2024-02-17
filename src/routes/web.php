@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccessModifierController;
 use App\Http\Controllers\Auth\Social\Google\GoogleAuthController;
 use App\Http\Controllers\Auth\Social\Yandex\YandexAuthController;
+use App\Http\Controllers\ExpirationTimeController;
 use App\Http\Controllers\PasteController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
@@ -64,7 +65,10 @@ Route::prefix('pastes')
             $accessModifierController = app()->make(AccessModifierController::class);
             $accessModifiers = $accessModifierController->index();
 
-            return view('pastes.create', compact('lastPastes', 'lastPastesUser', 'types', 'accessModifiers'));
+            $expirationTimeController = app()->make(ExpirationTimeController::class);
+            $expirationTimes = $expirationTimeController->index();
+
+            return view('pastes.create', compact('lastPastes', 'lastPastesUser', 'types', 'accessModifiers', 'expirationTimes'));
         })->name('pastes.create');
 
         Route::get('/{id}', [PasteController::class, 'show'])

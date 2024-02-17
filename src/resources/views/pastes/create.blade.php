@@ -28,9 +28,13 @@
                             <div class="col-md-4">
                                 <label for="time">Время:</label>
                                 <select class="form-control" id="time">
-                                    <option value="1" style="text-align: center;" selected>1 час</option>
-                                    <option value="2" style="text-align: center;">2 часа</option>
-                                    <option value="3" style="text-align: center;">3 часа</option>
+                                    @foreach($expirationTimes as $index => $expirationTime)
+                                        @if($index === 0)
+                                            <option value="1" style="text-align: center;" selected>{{$expirationTime->title}}</option>
+                                        @else
+                                            <option value="2" style="text-align: center;">{{$expirationTime->title}}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4">
