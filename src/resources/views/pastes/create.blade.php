@@ -48,8 +48,13 @@
                             <div class="col-md-4">
                                 <label for="restriction">Ограничение:</label>
                                 <select class="form-control" id="restriction">
-                                    <option value="age" style="text-align: center;" selected>Возрастное</option>
-                                    <option value="geo" style="text-align: center;">Географическое</option>
+                                    @foreach($accessModifiers as $index => $accessModifier)
+                                        @if($index === 0)
+                                            <option value="1" style="text-align: center;" selected>{{$accessModifier->title}}</option>
+                                        @else
+                                            <option value="2" style="text-align: center;">{{$accessModifier->title}}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\AccessModifierRepository;
+use App\Repositories\Interfaces\AccessModifierRepositoryInterface;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Repositories\Interfaces\SocialRepositoryInterface;
 use App\Repositories\Interfaces\TypeRepositoryInterface;
@@ -10,6 +12,8 @@ use App\Repositories\PasteRepository;
 use App\Repositories\SocialRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\UserRepository;
+use App\Services\AccessModifierService;
+use App\Services\interfaces\AccessModifierServiceInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Services\interfaces\SocialServiceInterface;
 use App\Services\interfaces\TypeServiceInterface;
@@ -66,6 +70,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             TypeServiceInterface::class,
             TypeService::class
+        );
+
+        $this->app->bind(
+            AccessModifierRepositoryInterface::class,
+            AccessModifierRepository::class
+        );
+
+        $this->app->bind(
+            AccessModifierServiceInterface::class,
+            AccessModifierService::class
         );
     }
 

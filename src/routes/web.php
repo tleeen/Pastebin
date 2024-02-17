@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessModifierController;
 use App\Http\Controllers\Auth\Social\Google\GoogleAuthController;
 use App\Http\Controllers\Auth\Social\Yandex\YandexAuthController;
 use App\Http\Controllers\PasteController;
@@ -60,7 +61,10 @@ Route::prefix('pastes')
             $typeController = app()->make(TypeController::class);
             $types = $typeController->index();
 
-            return view('pastes.create', compact('lastPastes', 'lastPastesUser', 'types'));
+            $accessModifierController = app()->make(AccessModifierController::class);
+            $accessModifiers = $accessModifierController->index();
+
+            return view('pastes.create', compact('lastPastes', 'lastPastesUser', 'types', 'accessModifiers'));
         })->name('pastes.create');
 
         Route::get('/{id}', [PasteController::class, 'show'])
