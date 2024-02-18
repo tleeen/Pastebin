@@ -27,4 +27,13 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof ForbiddenAccessException) {
+            return $e->render();
+        }
+
+        return parent::render($request, $e);
+    }
 }

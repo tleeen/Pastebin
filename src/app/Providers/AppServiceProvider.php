@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Exceptions\ForbiddenAccessException;
 use App\Repositories\AccessModifierRepository;
 use App\Repositories\ComplaintRepository;
 use App\Repositories\ExpirationTimeRepository;
