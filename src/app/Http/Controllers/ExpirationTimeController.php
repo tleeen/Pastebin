@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ExpirationTimeResource;
 use App\Services\interfaces\ExpirationTimeServiceInterface;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ExpirationTimeController extends Controller
 {
@@ -13,10 +14,10 @@ class ExpirationTimeController extends Controller
     public function __construct(private readonly ExpirationTimeServiceInterface $service){}
 
     /**
-     * @return Collection
+     * @return AnonymousResourceCollection
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return $this->service->getAll();
+        return ExpirationTimeResource::collection($this->service->getAll());
     }
 }
