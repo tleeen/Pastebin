@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Paste\StoreRequest;
+use App\Http\Resources\PasteResource;
 use App\Models\Paste;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Utils\HashUtil;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PasteController extends Controller
 {
@@ -19,9 +21,9 @@ class PasteController extends Controller
     public function __construct(private readonly PasteServiceInterface $service){}
 
     /**
-     * @return View
+     * @return AnonymousResourceCollection
      */
-    public function index(): View
+    public function index(): AnonymousResourceCollection
     {
         $pastes = $this->service->getAll();
 
@@ -30,7 +32,7 @@ class PasteController extends Controller
             return $paste;
         });
 
-        return view('pastes.index', compact('pastes'));
+        return PasteResource::collection($pastes);
     }
 
     /**

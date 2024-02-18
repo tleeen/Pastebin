@@ -10,9 +10,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface PasteServiceInterface
 {
     /**
-     * @return LengthAwarePaginator
+     * @return Collection
      */
-    public function getAll(): LengthAwarePaginator;
+    public function getAll(): Collection;
 
     /**
      * @param string $id

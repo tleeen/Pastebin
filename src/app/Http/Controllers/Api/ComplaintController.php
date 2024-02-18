@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Complaints\StoreRequest;
 use App\Http\Resources\ComplaintResource;
 use App\Services\interfaces\ComplaintServiceInterface;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ComplaintController extends Controller

@@ -19,7 +19,7 @@ class PasteResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'type' => $this->type->title,
-            'author' => $this->author->email,
+            'author' => ($this->author) ? $this->author->email : null,
             'access_modifier' => $this->access_modifier->title,
             'expiration_time' => $this->expiration_time->title,
             'created_at' => $this->created_at->format('d-m-Y H:i'),

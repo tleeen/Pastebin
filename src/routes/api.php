@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AccessModifierController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\ExpirationTimeController;
+use App\Http\Controllers\Api\PasteController;
 use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,7 @@ Route::prefix('/v1')
             ->group(function (){
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->get('/', [PasteController::class, 'index']);//*
+                    ->get('/', [PasteController::class, 'index']);
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
                     ->delete('/{id}', [PasteController::class, 'destroy']);//*

@@ -16,12 +16,13 @@ class PasteService implements PasteServiceInterface
      */
     public function __construct(private readonly PasteRepositoryInterface $repository){}
 
+
     /**
-     * @return LengthAwarePaginator
+     * @return Collection
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAll(): Collection
     {
-        return $this->repository->getAllPaginate();
+        return $this->repository->getAll();
     }
 
     /**
