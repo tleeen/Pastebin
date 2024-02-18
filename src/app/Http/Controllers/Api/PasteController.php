@@ -90,4 +90,19 @@ class PasteController extends Controller
 
         $this->service->delete($id);
     }
+
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function getAll(): AnonymousResourceCollection
+    {
+        $pastes = $this->service->getAllPaginate();
+
+        $pastes->transform(function ($paste) {
+            $paste->hash_id = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
+
+        return PasteResource::collection($pastes);
+    }
 }
