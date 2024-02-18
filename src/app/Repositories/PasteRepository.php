@@ -27,7 +27,8 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function delete(string $id): void
     {
-        Paste::where('id', $id)->delete();
+        $user = Paste::find($id);
+        $user->delete();
     }
 
     /**

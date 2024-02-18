@@ -36,21 +36,6 @@ class PasteController extends Controller
     }
 
     /**
-     * @param string $hash
-     * @return View
-     */
-    public function show(string $hash): View
-    {
-        $id = HashUtil::decipher($hash);
-
-        $paste = $this->service->getById($id);
-
-        $paste->hash_id = $hash;
-
-        return view('pastes.show', compact('paste'));
-    }
-
-    /**
      * @return Collection
      */
     public function last(): Collection
@@ -91,5 +76,16 @@ class PasteController extends Controller
         $paste->hash_id = $hash;
 
         return $paste;
+    }
+
+    /**
+     * @param string $hash
+     * @return void
+     */
+    public function destroy(string $hash): void
+    {
+        $id = HashUtil::decipher($hash);
+
+        $this->service->delete($id);
     }
 }

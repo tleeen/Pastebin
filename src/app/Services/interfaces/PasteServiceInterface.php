@@ -30,4 +30,10 @@ interface PasteServiceInterface
      * @return void
      */
     public function store(PasteDTO $DTO): void;
+
+    /**
+     * @param string $id
+     * @return void
+     */
+    public function delete(string $id): void;
 }

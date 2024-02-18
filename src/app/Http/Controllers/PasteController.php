@@ -21,7 +21,7 @@ class PasteController extends Controller
      */
     public function index(): View
     {
-        $pastes = $this->service->getAll();
+        $pastes = $this->service->getAllPaginate();
 
         $pastes->transform(function ($paste) {
             $paste->hash_id = HashUtil::encrypt($paste->id);
