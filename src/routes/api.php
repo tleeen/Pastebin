@@ -29,8 +29,10 @@ Route::group([
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+    Route::post('user', [AuthController::class, 'user']);
 
 });
 
-Route::middleware('jwt.auth')->get('/posts', [\App\Repositories\PasteRepository::class, 'getAll']);
+Route::middleware('jwt.auth')
+    ->middleware('admin.api')
+    ->get('/pastes', [\App\Repositories\PasteRepository::class, 'getAll']);
