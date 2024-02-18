@@ -53,8 +53,8 @@ Route::prefix('/v1')
             ->group(function (){
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->get('/', [ComplaintController::class, 'index']);//*
-                Route::post('/', [ComplaintController::class, 'store']);//*
+                    ->get('/', [ComplaintController::class, 'index']);
+                Route::post('/', [ComplaintController::class, 'store']);
             });
 
         Route::get('/types', [TypeController::class, 'index']);

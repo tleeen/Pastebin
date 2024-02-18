@@ -16,15 +16,13 @@ class ComplaintController extends Controller
 
     /**
      * @param StoreRequest $request
-     * @return View
+     * @return ComplaintResource
      */
-    public function store(StoreRequest $request): View
+    public function store(StoreRequest $request): ComplaintResource
     {
         $dto = $request->getDto();
 
-        $this->service->store($dto);
-
-        return view('complaints.ok');
+        return new ComplaintResource($this->service->store($dto));
     }
 
     /**
