@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use SocialiteProviders\Manager\Config;
-
 class AuthController extends Controller
 {
     /**
