@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DTO\PasteDTO;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
+use App\Utils\UserUtil;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -44,7 +45,7 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function getById(string $id): Paste
     {
-        $userId = (auth()->user()) ? auth()->user()->id : 0;
+        $userId = UserUtil::getId();
 
         return Paste::join('expiration_times', 'pastes.expiration_time_id', '=', 'expiration_times.id')
             ->where('pastes.created_at', '>', DB::raw('now() - INTERVAL expiration_times.volume MINUTE - INTERVAL 7 HOUR'))
@@ -80,7 +81,7 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function store(PasteDTO $DTO): void
     {
-        $userId = (auth()->user()) ? auth()->user()->id : null;
+        $userId = UserUtil::getId();
 
         Paste::create([
             'title' => $DTO->title,
@@ -88,13 +89,13 @@ class PasteRepository implements PasteRepositoryInterface
             'type_id' => $DTO->typeId,
             'access_modifier_id' => $DTO->accessModifierId,
             'expiration_time_id' => $DTO->expirationTimeId,
-            'author_id' => $userId
+            'author_id' => ($userId === 0) ? null : $userId
         ]);
     }
 
     public static function rules(): Builder
     {
-        $userId = (auth()->user()) ? auth()->user()->id : 0;
+        $userId = UserUtil::getId();
 
         return Paste::join('expiration_times', 'pastes.expiration_time_id', '=', 'expiration_times.id')
             ->where('pastes.created_at', '>', DB::raw('now() - INTERVAL expiration_times.volume MINUTE - INTERVAL 7 HOUR'))
