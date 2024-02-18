@@ -53,4 +53,14 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::all();
     }
+
+    /**
+     * @param string $id
+     * @return void
+     */
+    public function delete(string $id): void
+    {
+        $user = User::find($id);
+        $user->delete();
+    }
 }

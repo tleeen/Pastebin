@@ -40,4 +40,13 @@ class UserService implements UserServiceInterface
     {
         return $this->repository->getAll();
     }
+
+    /**
+     * @param string $id
+     * @return void
+     */
+    public function delete(string $id): void
+    {
+        $this->repository->delete($id);
+    }
 }

@@ -23,4 +23,10 @@ interface UserRepositoryInterface
      * @return Collection
      */
     public function getAll(): Collection;
+
+    /**
+     * @param string $id
+     * @return void
+     */
+    public function delete(string $id): void;
 }

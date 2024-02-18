@@ -41,7 +41,7 @@ Route::prefix('/v1')
                     ->get('/', [UserController::class, 'index']);
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->delete('/{id}', [UserController::class, 'destroy']);//*
+                    ->delete('/{id}', [UserController::class, 'destroy']);
                 Route::prefix('pastes')
                     ->group(function (){
                         Route::get('/', [UserController::class, 'getPastes']);//*

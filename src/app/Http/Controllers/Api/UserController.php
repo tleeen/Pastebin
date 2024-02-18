@@ -57,4 +57,13 @@ class UserController extends Controller
     {
         return UserResource::collection($this->service->getAll());
     }
+
+    /**
+     * @param string $id
+     * @return void
+     */
+    public function destroy(string $id): void
+    {
+        $this->service->delete($id);
+    }
 }
