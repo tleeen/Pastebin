@@ -9,8 +9,6 @@ use App\Http\Resources\PasteResource;
 use App\Models\Paste;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Utils\HashUtil;
-use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PasteController extends Controller
@@ -36,9 +34,9 @@ class PasteController extends Controller
     }
 
     /**
-     * @return Collection
+     * @return AnonymousResourceCollection
      */
-    public function last(): Collection
+    public function last(): AnonymousResourceCollection
     {
         $pastes = $this->service->getLast();
 
@@ -47,7 +45,7 @@ class PasteController extends Controller
             return $paste;
         });
 
-        return $pastes;
+        return PasteResource::collection($pastes);
     }
 
     /**

@@ -30,9 +30,9 @@ Route::prefix('/v1')
                     ->middleware('admin.api')
                     ->delete('/{id}', [PasteController::class, 'destroy']);
                 Route::post('/', [PasteController::class, 'store']);
-                Route::get('/all', [PasteController::class, 'getAll']);//*
+                Route::get('/all', [PasteController::class, 'getAll']);
+                Route::get('/last', [PasteController::class, 'last']);//*
                 Route::get('/{id}', [PasteController::class, 'getById']);//*
-                Route::get('/latest', [PasteController::class, 'latest']);//*
             });
 
         Route::prefix('/users')
