@@ -18,4 +18,9 @@ interface UserRepositoryInterface
      * @return Collection
      */
     public function getLastPastes(string $id): Collection;
+
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection;
 }

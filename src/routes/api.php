@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\ExpirationTimeController;
 use App\Http\Controllers\Api\TypeController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,14 +24,14 @@ Route::prefix('/v1')
             ->group(function (){
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->get('/', [PasteController::class, 'index']);
+                    ->get('/', [PasteController::class, 'index']);//*
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->delete('/{id}', [PasteController::class, 'destroy']);
-                Route::post('/', [PasteController::class, 'store']);
-                Route::get('/all', [PasteController::class, 'getAll']);
-                Route::get('/{id}', [PasteController::class, 'getById']);
-                Route::get('/latest', [PasteController::class, 'latest']);
+                    ->delete('/{id}', [PasteController::class, 'destroy']);//*
+                Route::post('/', [PasteController::class, 'store']);//*
+                Route::get('/all', [PasteController::class, 'getAll']);//*
+                Route::get('/{id}', [PasteController::class, 'getById']);//*
+                Route::get('/latest', [PasteController::class, 'latest']);//*
             });
 
         Route::prefix('/users')
@@ -40,11 +41,11 @@ Route::prefix('/v1')
                     ->get('/', [UserController::class, 'index']);
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->delete('/{id}', [UserController::class, 'destroy']);
+                    ->delete('/{id}', [UserController::class, 'destroy']);//*
                 Route::prefix('pastes')
                     ->group(function (){
-                        Route::get('/', [UserController::class, 'getPastes']);
-                        Route::get('/latest', [UserController::class, 'getLastPastes']);
+                        Route::get('/', [UserController::class, 'getPastes']);//*
+                        Route::get('/latest', [UserController::class, 'getLastPastes']);//*
                     });
             });
 
@@ -52,8 +53,8 @@ Route::prefix('/v1')
             ->group(function (){
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->get('/', [ComplaintController::class, 'index']);
-                Route::post('/', [ComplaintController::class, 'store']);
+                    ->get('/', [ComplaintController::class, 'index']);//*
+                Route::post('/', [ComplaintController::class, 'store']);//*
             });
 
         Route::get('/types', [TypeController::class, 'index']);

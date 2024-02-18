@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Services\interfaces\UserServiceInterface;
 use App\Utils\HashUtil;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserController extends Controller
 {
@@ -46,5 +48,13 @@ class UserController extends Controller
         });
 
         return $pastes;
+    }
+
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function index(): AnonymousResourceCollection
+    {
+        return UserResource::collection($this->service->getAll());
     }
 }

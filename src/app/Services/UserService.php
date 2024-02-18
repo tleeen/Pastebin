@@ -32,4 +32,12 @@ class UserService implements UserServiceInterface
     {
         return $this->repository->getLastPastes($id);
     }
+
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return $this->repository->getAll();
+    }
 }
