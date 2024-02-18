@@ -27,9 +27,9 @@ interface PasteRepositoryInterface
 
     /**
      * @param string $id
-     * @return Paste
+     * @return Model
      */
-    public function getById(string $id): Paste;
+    public function getById(string $id): Model;
 
     /**
      * @return Collection

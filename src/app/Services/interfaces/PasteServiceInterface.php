@@ -3,10 +3,8 @@
 namespace App\Services\interfaces;
 
 use App\DTO\PasteDTO;
-use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 interface PasteServiceInterface
 {
@@ -17,9 +15,9 @@ interface PasteServiceInterface
 
     /**
      * @param string $id
-     * @return Paste
+     * @return Model
      */
-    public function getById(string $id): Paste;
+    public function getById(string $id): Model;
 
     /**
      * @return Collection

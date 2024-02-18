@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\DTO\PasteDTO;
-use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -52,9 +51,9 @@ class PasteService implements PasteServiceInterface
 
     /**
      * @param string $id
-     * @return Paste
+     * @return Model
      */
-    public function getById(string $id): Paste
+    public function getById(string $id): Model
     {
         return $this->repository->getById($id);
     }

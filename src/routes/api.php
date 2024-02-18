@@ -31,8 +31,8 @@ Route::prefix('/v1')
                     ->delete('/{id}', [PasteController::class, 'destroy']);
                 Route::post('/', [PasteController::class, 'store']);
                 Route::get('/all', [PasteController::class, 'getAll']);
-                Route::get('/last', [PasteController::class, 'last']);//*
-                Route::get('/{id}', [PasteController::class, 'getById']);//*
+                Route::get('/last', [PasteController::class, 'last']);
+                Route::get('/{id}', [PasteController::class, 'getById']);
             });
 
         Route::prefix('/users')

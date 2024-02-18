@@ -9,6 +9,7 @@ use App\Http\Resources\PasteResource;
 use App\Models\Paste;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Utils\HashUtil;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PasteController extends Controller
@@ -65,9 +66,9 @@ class PasteController extends Controller
 
     /**
      * @param string $hash
-     * @return Paste
+     * @return PasteResource
      */
-    public function getById(string $hash): Paste
+    public function getById(string $hash): PasteResource
     {
         $id = HashUtil::decipher($hash);
 
@@ -75,7 +76,7 @@ class PasteController extends Controller
 
         $paste->hash_id = $hash;
 
-        return $paste;
+        return new PasteResource($paste);
     }
 
     /**
