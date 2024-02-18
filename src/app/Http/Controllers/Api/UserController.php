@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PasteResource;
 use App\Http\Resources\UserResource;
 use App\Services\interfaces\UserServiceInterface;
 use App\Utils\HashUtil;
@@ -18,11 +19,12 @@ class UserController extends Controller
      */
     public function __construct(private readonly UserServiceInterface $service){}
 
+
     /**
      * @param string $id
-     * @return View
+     * @return AnonymousResourceCollection
      */
-    public function pastes(string $id): View
+    public function pastes(string $id): AnonymousResourceCollection
     {
         $pastes = $this->service->getAllPastes($id);
 
@@ -31,14 +33,14 @@ class UserController extends Controller
             return $paste;
         });
 
-        return view('users.pastes', compact('pastes'));
+        return PasteResource::collection($pastes);
     }
 
     /**
      * @param string $id
-     * @return Collection
+     * @return AnonymousResourceCollection
      */
-    public function lastPastes(string $id): Collection
+    public function lastPastes(string $id): AnonymousResourceCollection
     {
         $pastes = $this->service->getLastPastes($id);
 
@@ -47,7 +49,7 @@ class UserController extends Controller
             return $paste;
         });
 
-        return $pastes;
+        return PasteResource::collection($pastes);
     }
 
     /**

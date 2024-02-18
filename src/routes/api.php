@@ -35,17 +35,17 @@ Route::prefix('/v1')
             });
 
         Route::prefix('/users')
+            ->middleware('jwt.auth')
             ->group(function (){
-                Route::middleware('jwt.auth')
-                    ->middleware('admin.api')
+                Route::middleware('admin.api')
                     ->get('/', [UserController::class, 'index']);
-                Route::middleware('jwt.auth')
-                    ->middleware('admin.api')
+                Route::middleware('admin.api')
                     ->delete('/{id}', [UserController::class, 'destroy']);
-                Route::prefix('pastes')
+                Route::prefix('/{id}/pastes')
+                    ->middleware('user.data')
                     ->group(function (){
-                        Route::get('/', [UserController::class, 'getPastes']);//*
-                        Route::get('/latest', [UserController::class, 'getLastPastes']);//*
+                        Route::get('/', [UserController::class, 'pastes']);
+                        Route::get('/latest', [UserController::class, 'lastPastes']);
                     });
             });
 
