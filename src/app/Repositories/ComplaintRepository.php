@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DTO\ComplaintDTO;
 use App\Models\Complaint;
 use App\Repositories\Interfaces\ComplaintRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class ComplaintRepository implements ComplaintRepositoryInterface
 {
@@ -18,5 +19,13 @@ class ComplaintRepository implements ComplaintRepositoryInterface
             'body' => $DTO->body,
             'paste_id' => $DTO->pasteId
         ]);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return Complaint::all();
     }
 }
