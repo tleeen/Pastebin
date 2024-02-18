@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AccessModifierController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\TypeController;
 use Illuminate\Support\Facades\Route;
