@@ -28,8 +28,8 @@ Route::prefix('/v1')
                     ->get('/', [PasteController::class, 'index']);
                 Route::middleware('jwt.auth')
                     ->middleware('admin.api')
-                    ->delete('/{id}', [PasteController::class, 'destroy']);//*
-                Route::post('/', [PasteController::class, 'store']);//*
+                    ->delete('/{id}', [PasteController::class, 'destroy']);
+                Route::post('/', [PasteController::class, 'store']);
                 Route::get('/all', [PasteController::class, 'getAll']);//*
                 Route::get('/{id}', [PasteController::class, 'getById']);//*
                 Route::get('/latest', [PasteController::class, 'latest']);//*

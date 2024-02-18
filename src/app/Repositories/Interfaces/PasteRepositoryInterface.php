@@ -4,6 +4,7 @@ namespace App\Repositories\Interfaces;
 use App\DTO\PasteDTO;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface PasteRepositoryInterface
@@ -37,7 +38,7 @@ interface PasteRepositoryInterface
 
     /**
      * @param PasteDTO $DTO
-     * @return void
+     * @return Model
      */
-    public function store(PasteDTO $DTO): void;
+    public function store(PasteDTO $DTO): Model;
 }

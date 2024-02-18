@@ -52,15 +52,17 @@ class PasteController extends Controller
 
     /**
      * @param StoreRequest $request
-     * @return View
+     * @return PasteResource
      */
-    public function store(StoreRequest $request): View
+    public function store(StoreRequest $request): PasteResource
     {
         $dto = $request->getDto();
 
-        $this->service->store($dto);
+        $paste = $this->service->store($dto);
 
-        return view('pastes.ok');
+        $paste->hash_id = HashUtil::encrypt($paste->id);
+
+        return new PasteResource($paste);
     }
 
     /**

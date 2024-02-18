@@ -8,6 +8,7 @@ use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Utils\UserUtil;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -78,13 +79,13 @@ class PasteRepository implements PasteRepositoryInterface
 
     /**
      * @param PasteDTO $DTO
-     * @return void
+     * @return Model
      */
-    public function store(PasteDTO $DTO): void
+    public function store(PasteDTO $DTO): Model
     {
         $userId = UserUtil::getId();
 
-        Paste::create([
+        return Paste::create([
             'title' => $DTO->title,
             'body' => $DTO->body,
             'type_id' => $DTO->typeId,

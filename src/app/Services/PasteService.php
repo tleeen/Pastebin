@@ -7,6 +7,7 @@ use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class PasteService implements PasteServiceInterface
@@ -42,11 +43,11 @@ class PasteService implements PasteServiceInterface
 
     /**
      * @param PasteDTO $DTO
-     * @return void
+     * @return Model
      */
-    public function store(PasteDTO $DTO): void
+    public function store(PasteDTO $DTO): Model
     {
-        $this->repository->store($DTO);
+        return $this->repository->store($DTO);
     }
 
     /**
