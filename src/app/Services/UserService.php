@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\interfaces\UserServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,7 +27,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @param string $id
-     * @return Collection
+     * @return Collection<int, User>
      */
     public function getLastPastes(string $id): Collection
     {
@@ -34,7 +35,7 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @return Collection
+     * @return Collection<int, User>
      */
     public function getAll(): Collection
     {

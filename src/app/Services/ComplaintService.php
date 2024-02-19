@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTO\ComplaintDTO;
+use App\Models\Complaint;
 use App\Repositories\Interfaces\ComplaintRepositoryInterface;
 use App\Services\interfaces\ComplaintServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,15 +18,15 @@ class ComplaintService implements ComplaintServiceInterface
 
     /**
      * @param ComplaintDTO $DTO
-     * @return Model
+     * @return Complaint
      */
-    public function store(ComplaintDTO $DTO): Model
+    public function store(ComplaintDTO $DTO): Complaint
     {
         return $this->repository->store($DTO);
     }
 
     /**
-     * @return Collection
+     * @return Collection<int, Complaint>
      */
     public function getAll(): Collection
     {

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AccessModifierResource;
 use App\Services\interfaces\AccessModifierServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AccessModifierController extends Controller
 {
@@ -13,10 +15,10 @@ class AccessModifierController extends Controller
     public function __construct(private readonly AccessModifierServiceInterface $service){}
 
     /**
-     * @return Collection
+     * @return AnonymousResourceCollection
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return $this->service->getAll();
+        return AccessModifierResource::collection($this->service->getAll());
     }
 }

@@ -6,6 +6,10 @@ use Hashids\Hashids;
 
 class HashUtil
 {
+    /**
+     * @param string $id
+     * @return string
+     */
     static public function encrypt(string $id): string
     {
         $hashids = new Hashids('ggIKLdf', 8);

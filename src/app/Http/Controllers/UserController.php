@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\interfaces\PasteServiceInterface;
-use App\Utils\HashUtil;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 
 class UserController extends Controller
 {
@@ -20,14 +18,5 @@ class UserController extends Controller
         $pastes = $this->pasteService->getAuthor($id);
 
         return view('users.pastes', compact('pastes'));
-    }
-
-    /**
-     * @param int $id
-     * @return Collection
-     */
-    public function lastPastes(int $id): Collection
-    {
-        return $this->pasteService->getAuthorLast($id);
     }
 }

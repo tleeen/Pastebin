@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Paste\StoreRequest;
-use App\Models\Paste;
+use App\Http\Resources\PasteResource;
 use App\Services\interfaces\AccessModifierServiceInterface;
 use App\Services\interfaces\ExpirationTimeServiceInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Services\interfaces\TypeServiceInterface;
 use App\Utils\UserUtil;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PasteController extends Controller
 {
@@ -44,11 +44,11 @@ class PasteController extends Controller
     }
 
     /**
-     * @return Collection
+     * @return AnonymousResourceCollection
      */
-    public function last(): Collection
+    public function last(): AnonymousResourceCollection
     {
-        return $this->pasteService->getLast();
+        return PasteResource::collection($this->pasteService->getLast());
     }
 
     /**
@@ -62,15 +62,6 @@ class PasteController extends Controller
         $this->pasteService->store($dto);
 
         return view('pastes.ok');
-    }
-
-    /**
-     * @param string $hash
-     * @return Paste
-     */
-    public function getById(string $hash): Paste
-    {
-        return $this->pasteService->getById($hash);
     }
 
     public function create(): View

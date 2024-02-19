@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Exceptions\ForbiddenAccessException;
 use App\Repositories\AccessModifierRepository;
 use App\Repositories\ComplaintRepository;
 use App\Repositories\ExpirationTimeRepository;
@@ -37,79 +36,39 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
+     * All the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [
+        SocialRepositoryInterface::class => SocialRepository::class,
+        SocialServiceInterface::class => SocialService::class,
+
+        PasteRepositoryInterface::class => PasteRepository::class,
+        PasteServiceInterface::class => PasteService::class,
+
+        UserRepositoryInterface::class => UserRepository::class,
+        UserServiceInterface::class => UserService::class,
+
+        TypeRepositoryInterface::class => TypeRepository::class,
+        TypeServiceInterface::class => TypeService::class,
+
+        AccessModifierRepositoryInterface::class => AccessModifierRepository::class,
+        AccessModifierServiceInterface::class => AccessModifierService::class,
+
+        ExpirationTimeRepositoryInterface::class => ExpirationTimeRepository::class,
+        ExpirationTimeServiceInterface::class => ExpirationTimeService::class,
+
+        ComplaintRepositoryInterface::class => ComplaintRepository::class,
+        ComplaintServiceInterface::class => ComplaintService::class,
+    ];
+
+    /**
      * Register any application services.
      */
     public function register(): void
     {
-        $this->app->bind(
-            SocialRepositoryInterface::class,
-            SocialRepository::class
-        );
 
-        $this->app->bind(
-            SocialServiceInterface::class,
-            SocialService::class
-        );
-
-        $this->app->bind(
-            PasteRepositoryInterface::class,
-            PasteRepository::class
-        );
-
-        $this->app->bind(
-            PasteServiceInterface::class,
-            PasteService::class
-        );
-
-        $this->app->bind(
-            UserRepositoryInterface::class,
-            UserRepository::class
-        );
-
-        $this->app->bind(
-            UserServiceInterface::class,
-            UserService::class
-        );
-
-        $this->app->bind(
-            TypeRepositoryInterface::class,
-            TypeRepository::class
-        );
-
-        $this->app->bind(
-            TypeServiceInterface::class,
-            TypeService::class
-        );
-
-        $this->app->bind(
-            AccessModifierRepositoryInterface::class,
-            AccessModifierRepository::class
-        );
-
-        $this->app->bind(
-            AccessModifierServiceInterface::class,
-            AccessModifierService::class
-        );
-
-        $this->app->bind(
-            ExpirationTimeRepositoryInterface::class,
-            ExpirationTimeRepository::class
-        );
-
-        $this->app->bind(
-            ExpirationTimeServiceInterface::class,
-            ExpirationTimeService::class
-        );
-
-        $this->app->bind(
-            ComplaintRepositoryInterface::class,
-            ComplaintRepository::class
-        );
-
-        $this->app->bind(
-            ComplaintServiceInterface::class,
-            ComplaintService::class
-        );
     }
 
     /**

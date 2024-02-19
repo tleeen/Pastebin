@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface PasteRepositoryInterface
 {
     /**
-     * @return Collection<int Paste>
+     * @return Collection<int, Paste>
      */
     public function getAll(): Collection;
 
@@ -31,7 +31,7 @@ interface PasteRepositoryInterface
     public function getById(int $id): Paste;
 
     /**
-     * @return Collection<int Paste>
+     * @return Collection<int, Paste>
      */
     public function getLast(): Collection;
 
@@ -41,7 +41,15 @@ interface PasteRepositoryInterface
      */
     public function store(PasteDTO $DTO): Paste;
 
-    public function getAuthorLast(int $id);
+    /**
+     * @param int $id
+     * @return Collection<int, Paste>
+     */
+    public function getAuthorLast(int $id): Collection;
 
-    public function getAuthor(int $id);
+    /**
+     * @param int $id
+     * @return LengthAwarePaginator
+     */
+    public function getAuthor(int $id): LengthAwarePaginator;
 }

@@ -6,15 +6,14 @@ use App\DTO\ComplaintDTO;
 use App\Models\Complaint;
 use App\Repositories\Interfaces\ComplaintRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class ComplaintRepository implements ComplaintRepositoryInterface
 {
     /**
      * @param ComplaintDTO $DTO
-     * @return Model
+     * @return Complaint
      */
-    public function store(ComplaintDTO $DTO): Model
+    public function store(ComplaintDTO $DTO): Complaint
     {
         return Complaint::create([
             'body' => $DTO->body,
@@ -23,7 +22,7 @@ class ComplaintRepository implements ComplaintRepositoryInterface
     }
 
     /**
-     * @return Collection
+     * @return Collection<int, Complaint>
      */
     public function getAll(): Collection
     {

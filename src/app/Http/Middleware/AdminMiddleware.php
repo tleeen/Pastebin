@@ -13,13 +13,12 @@ class AdminMiddleware
      * Handle an incoming request.
      *
      * @param Closure(Request): (Response) $next
-     * @throws ForbiddenAccessException
      */
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->user()){
             if(auth()->user()->role->name === 'admin'){
-                throw new ForbiddenAccessException(403, 'This action is not available to you');
+                return redirect('/admin');
             }
         }
 

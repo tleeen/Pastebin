@@ -16,9 +16,10 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class UserController extends Controller
 {
     /**
-     * @param UserServiceInterface $service
+     * @param UserServiceInterface $userService
+     * @param PasteServiceInterface $pasteService
      */
-    public function __construct(private readonly UserServiceInterface $userService,
+    public function __construct(private readonly UserServiceInterface  $userService,
                                 private readonly PasteServiceInterface $pasteService){}
 
 

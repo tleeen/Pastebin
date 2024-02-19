@@ -23,7 +23,7 @@ class UserRepository implements UserRepositoryInterface
 
     /**
      * @param string $id
-     * @return Collection
+     * @return Collection<int, User>
      */
     public function getLastPastes(string $id): Collection
     {
@@ -47,7 +47,7 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * @return Collection
+     * @return Collection<int, User>
      */
     public function getAll(): Collection
     {

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class PasteRepository implements PasteRepositoryInterface
 {
     /**
-     * @return Collection<int Paste>
+     * @return Collection<int, Paste>
      */
     public function getAll(): Collection
     {
@@ -31,13 +31,21 @@ class PasteRepository implements PasteRepositoryInterface
         $user->delete();
     }
 
-    public function getAuthor(int $id)
+    /**
+     * @param int $id
+     * @return LengthAwarePaginator
+     */
+    public function getAuthor(int $id): LengthAwarePaginator
     {
         return $this::rulesForAuthorPastes($id)
             ->paginate(10);
     }
 
-    public function getAuthorLast(int $id)
+    /**
+     * @param int $id
+     * @return Collection<int, Paste>
+     */
+    public function getAuthorLast(int $id): Collection
     {
         return $this::rulesForAuthorPastes($id)
             ->latest()
@@ -80,7 +88,7 @@ class PasteRepository implements PasteRepositoryInterface
     }
 
     /**
-     * @return Collection<int Paste>
+     * @return Collection<int, Paste>
      */
     public function getLast(): Collection
     {

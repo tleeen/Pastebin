@@ -11,12 +11,12 @@ interface ComplaintRepositoryInterface
 {
     /**
      * @param ComplaintDTO $DTO
-     * @return Model
+     * @return Complaint
      */
-    public function store(ComplaintDTO $DTO): Model;
+    public function store(ComplaintDTO $DTO): Complaint;
 
     /**
-     * @return Collection
+     * @return Collection<int, Complaint>
      */
     public function getAll(): Collection;
 }

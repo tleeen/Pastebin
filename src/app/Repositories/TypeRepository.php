@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class TypeRepository implements TypeRepositoryInterface
 {
     /**
-     * @return Collection
+     * @return Collection<int, Type>
      */
     public function getAll(): Collection
     {

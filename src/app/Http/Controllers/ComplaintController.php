@@ -27,7 +27,11 @@ class ComplaintController extends Controller
         return view('complaints.ok');
     }
 
-    public function create(string $id)
+    /**
+     * @param string $id
+     * @return View
+     */
+    public function create(string $id): View
     {
         $paste = $this->pasteService->getById($id);
 

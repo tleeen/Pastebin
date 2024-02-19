@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class AccessModifierRepository implements AccessModifierRepositoryInterface
 {
     /**
-     * @return Collection
+     * @return Collection<int, AccessModifier>
      */
     public function getAll(): Collection
     {
