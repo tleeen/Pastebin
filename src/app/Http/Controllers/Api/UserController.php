@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PasteResource;
 use App\Http\Resources\UserResource;
+use App\Services\interfaces\PasteServiceInterface;
 use App\Services\interfaces\UserServiceInterface;
 use App\Utils\HashUtil;
 use Illuminate\Contracts\View\View;
@@ -17,7 +18,8 @@ class UserController extends Controller
     /**
      * @param UserServiceInterface $service
      */
-    public function __construct(private readonly UserServiceInterface $service){}
+    public function __construct(private readonly UserServiceInterface $userService,
+                                private readonly PasteServiceInterface $pasteService){}
 
 
     /**
@@ -26,14 +28,7 @@ class UserController extends Controller
      */
     public function pastes(string $id): AnonymousResourceCollection
     {
-        $pastes = $this->service->getAllPastes($id);
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
-
-        return PasteResource::collection($pastes);
+        return PasteResource::collection($this->pasteService->getAuthor($id));
     }
 
     /**
@@ -42,14 +37,7 @@ class UserController extends Controller
      */
     public function lastPastes(string $id): AnonymousResourceCollection
     {
-        $pastes = $this->service->getLastPastes($id);
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
-
-        return PasteResource::collection($pastes);
+        return PasteResource::collection($this->pasteService->getAuthorLast($id));
     }
 
     /**
@@ -57,7 +45,7 @@ class UserController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return UserResource::collection($this->service->getAll());
+        return UserResource::collection($this->userService->getAll());
     }
 
     /**
@@ -66,6 +54,6 @@ class UserController extends Controller
      */
     public function destroy(string $id): void
     {
-        $this->service->delete($id);
+        $this->userService->delete($id);
     }
 }

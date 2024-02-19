@@ -2,47 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\interfaces\UserServiceInterface;
+use App\Services\interfaces\PasteServiceInterface;
 use App\Utils\HashUtil;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserController extends Controller
 {
-    /**
-     * @param UserServiceInterface $service
-     */
-    public function __construct(private readonly UserServiceInterface $service){}
+    public function __construct(private readonly PasteServiceInterface $pasteService){}
 
     /**
-     * @param string $id
+     * @param int $id
      * @return View
      */
-    public function pastes(string $id): View
+    public function pastes(int $id): View
     {
-        $pastes = $this->service->getAllPastes($id);
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
+        $pastes = $this->pasteService->getAuthor($id);
 
         return view('users.pastes', compact('pastes'));
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return Collection
      */
-    public function lastPastes(string $id): Collection
+    public function lastPastes(int $id): Collection
     {
-        $pastes = $this->service->getLastPastes($id);
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
-
-        return $pastes;
+        return $this->pasteService->getAuthorLast($id);
     }
 }

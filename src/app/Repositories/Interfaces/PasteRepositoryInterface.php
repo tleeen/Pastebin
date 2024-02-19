@@ -4,21 +4,20 @@ namespace App\Repositories\Interfaces;
 use App\DTO\PasteDTO;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface PasteRepositoryInterface
 {
     /**
-     * @return Collection
+     * @return Collection<int Paste>
      */
     public function getAll(): Collection;
 
     /**
-     * @param string $id
+     * @param int $id
      * @return void
      */
-    public function delete(string $id): void;
+    public function delete(int $id): void;
 
     /**
      * @return LengthAwarePaginator
@@ -26,19 +25,23 @@ interface PasteRepositoryInterface
     public function getAllPaginate(): LengthAwarePaginator;
 
     /**
-     * @param string $id
-     * @return Model
+     * @param int $id
+     * @return Paste
      */
-    public function getById(string $id): Model;
+    public function getById(int $id): Paste;
 
     /**
-     * @return Collection
+     * @return Collection<int Paste>
      */
     public function getLast(): Collection;
 
     /**
      * @param PasteDTO $DTO
-     * @return Model
+     * @return Paste
      */
-    public function store(PasteDTO $DTO): Model;
+    public function store(PasteDTO $DTO): Paste;
+
+    public function getAuthorLast(int $id);
+
+    public function getAuthor(int $id);
 }

@@ -6,10 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Paste\StoreRequest;
 use App\Http\Resources\PasteResource;
-use App\Models\Paste;
 use App\Services\interfaces\PasteServiceInterface;
-use App\Utils\HashUtil;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PasteController extends Controller
@@ -24,14 +21,7 @@ class PasteController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        $pastes = $this->service->getAll();
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
-
-        return PasteResource::collection($pastes);
+        return PasteResource::collection($this->service->getAll());
     }
 
     /**
@@ -39,14 +29,7 @@ class PasteController extends Controller
      */
     public function last(): AnonymousResourceCollection
     {
-        $pastes = $this->service->getLast();
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
-
-        return PasteResource::collection($pastes);
+        return PasteResource::collection($this->service->getLast());
     }
 
     /**
@@ -59,8 +42,6 @@ class PasteController extends Controller
 
         $paste = $this->service->store($dto);
 
-        $paste->hash_id = HashUtil::encrypt($paste->id);
-
         return new PasteResource($paste);
     }
 
@@ -70,13 +51,7 @@ class PasteController extends Controller
      */
     public function getById(string $hash): PasteResource
     {
-        $id = HashUtil::decipher($hash);
-
-        $paste = $this->service->getById($id);
-
-        $paste->hash_id = $hash;
-
-        return new PasteResource($paste);
+        return new PasteResource($this->service->getById($hash));
     }
 
     /**
@@ -85,9 +60,7 @@ class PasteController extends Controller
      */
     public function destroy(string $hash): void
     {
-        $id = HashUtil::decipher($hash);
-
-        $this->service->delete($id);
+        $this->service->delete($hash);
     }
 
     /**
@@ -95,13 +68,6 @@ class PasteController extends Controller
      */
     public function getAll(): AnonymousResourceCollection
     {
-        $pastes = $this->service->getAllPaginate();
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
-
-        return PasteResource::collection($pastes);
+        return PasteResource::collection($this->service->getAllPaginate());
     }
 }

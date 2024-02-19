@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\DTO\PasteDTO;
+use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
+use App\Utils\HashUtil;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -21,45 +23,102 @@ class PasteService implements PasteServiceInterface
      */
     public function getAllPaginate(): LengthAwarePaginator
     {
-        return $this->repository->getAllPaginate();
+        $pastes = $this->repository->getAllPaginate();
+
+        $pastes->transform(function ($paste) {
+            $paste->hash_id = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
+
+        return $pastes;
     }
 
     /**
-     * @return Collection
+     * @return Collection<int, Paste>
      */
     public function getAll(): Collection
     {
-        return $this->repository->getAll();
+        $pastes = $this->repository->getAll();
+
+        $pastes->transform(function ($paste) {
+            $paste->hash_id = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
+
+        return $pastes;
     }
 
     /**
-     * @return Collection
+     * @return Collection<int, Paste>
      */
     public function getLast(): Collection
     {
-        return $this->repository->getLast();
+        $pastes = $this->repository->getLast();
+
+        $pastes->transform(function ($paste) {
+            $paste->hash_id = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
+
+        return $pastes;
     }
 
     /**
      * @param PasteDTO $DTO
-     * @return Model
+     * @return Paste
      */
-    public function store(PasteDTO $DTO): Model
+    public function store(PasteDTO $DTO): Paste
     {
-        return $this->repository->store($DTO);
+        $paste = $this->repository->store($DTO);
+
+        $paste->hash_id = HashUtil::encrypt($paste->id);
+
+        return $paste;
     }
 
     /**
-     * @param string $id
-     * @return Model
+     * @param string $hash
+     * @return Paste
      */
-    public function getById(string $id): Model
+    public function getById(string $hash): Paste
     {
-        return $this->repository->getById($id);
+        $id = HashUtil::decipher($hash);
+
+        $paste = $this->repository->getById($id);
+
+        $paste->hash_id = $hash;
+
+        return $paste;
     }
 
-    public function delete(string $id): void
+    public function delete(string $hash): void
     {
+        $id = HashUtil::decipher($hash);
+
         $this->repository->delete($id);
+    }
+
+    public function getAuthor(int $id)
+    {
+        $pastes = $this->repository->getAuthor($id);
+
+        $pastes->transform(function ($paste) {
+            $paste->hash_id = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
+
+        return $pastes;
+    }
+
+    public function getAuthorLast(int $id)
+    {
+        $pastes = $this->repository->getAuthorLast($id);
+
+        $pastes->transform(function ($paste) {
+            $paste->hash_id = HashUtil::encrypt($paste->id);
+            return $paste;
+        });
+
+        return $pastes;
     }
 }

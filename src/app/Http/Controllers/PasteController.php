@@ -4,29 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Paste\StoreRequest;
 use App\Models\Paste;
+use App\Services\interfaces\AccessModifierServiceInterface;
+use App\Services\interfaces\ExpirationTimeServiceInterface;
 use App\Services\interfaces\PasteServiceInterface;
-use App\Utils\HashUtil;
+use App\Services\interfaces\TypeServiceInterface;
+use App\Utils\UserUtil;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 
 class PasteController extends Controller
 {
-    /**
-     * @param PasteServiceInterface $service
-     */
-    public function __construct(private readonly PasteServiceInterface $service){}
+    public function __construct(
+        private readonly PasteServiceInterface $pasteService,
+        private readonly TypeServiceInterface $typeService,
+        private readonly AccessModifierServiceInterface $accessModifierService,
+        private readonly ExpirationTimeServiceInterface $expirationTimeService
+    )
+    {}
 
     /**
      * @return View
      */
     public function index(): View
     {
-        $pastes = $this->service->getAllPaginate();
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
+        $pastes = $this->pasteService->getAllPaginate();
 
         return view('pastes.index', compact('pastes'));
     }
@@ -37,11 +38,7 @@ class PasteController extends Controller
      */
     public function show(string $hash): View
     {
-        $id = HashUtil::decipher($hash);
-
-        $paste = $this->service->getById($id);
-
-        $paste->hash_id = $hash;
+        $paste = $this->pasteService->getById($hash);
 
         return view('pastes.show', compact('paste'));
     }
@@ -51,14 +48,7 @@ class PasteController extends Controller
      */
     public function last(): Collection
     {
-        $pastes = $this->service->getLast();
-
-        $pastes->transform(function ($paste) {
-            $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
-
-        return $pastes;
+        return $this->pasteService->getLast();
     }
 
     /**
@@ -69,7 +59,7 @@ class PasteController extends Controller
     {
         $dto = $request->getDto();
 
-        $this->service->store($dto);
+        $this->pasteService->store($dto);
 
         return view('pastes.ok');
     }
@@ -80,12 +70,17 @@ class PasteController extends Controller
      */
     public function getById(string $hash): Paste
     {
-        $id = HashUtil::decipher($hash);
+        return $this->pasteService->getById($hash);
+    }
 
-        $paste = $this->service->getById($id);
+    public function create(): View
+    {
+        $lastPastes = $this->pasteService->getLast();
+        $lastPastesUser = $this->pasteService->getAuthorLast(UserUtil::getId());
+        $types = $this->typeService->getAll();
+        $accessModifiers = $this->accessModifierService->getAll();
+        $expirationTimes = $this->expirationTimeService->getAll();
 
-        $paste->hash_id = $hash;
-
-        return $paste;
+        return view('pastes.create', compact('lastPastes', 'lastPastesUser', 'types', 'accessModifiers', 'expirationTimes'));
     }
 }

@@ -1,12 +1,9 @@
 <?php
 
-use App\Http\Controllers\AccessModifierController;
 use App\Http\Controllers\Auth\Social\Google\GoogleAuthController;
 use App\Http\Controllers\Auth\Social\Yandex\YandexAuthController;
 use App\Http\Controllers\ComplaintController;
-use App\Http\Controllers\ExpirationTimeController;
 use App\Http\Controllers\PasteController;
-use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -57,30 +54,9 @@ Route::prefix('pastes')
     ->middleware('admin')
     ->group(function (){
         Route::get('/', [PasteController::class, 'index'])
-        ->name('pastes.index');
+            ->name('pastes.index');
 
-        Route::get('/create', function (){
-            $pasteController = app()->make(PasteController::class);
-            $lastPastes = $pasteController->last();
-
-            $typeController = app()->make(TypeController::class);
-            $types = $typeController->index();
-
-            $accessModifierController = app()->make(AccessModifierController::class);
-            $accessModifiers = $accessModifierController->index();
-
-            $expirationTimeController = app()->make(ExpirationTimeController::class);
-            $expirationTimes = $expirationTimeController->index();
-
-            $userController = app()->make(UserController::class);
-            $lastPastesUser = (auth()->user()) ? $userController->lastPastes(auth()->user()->id) : null;
-
-            return view('pastes.create', compact(
-                'lastPastes',
-                'lastPastesUser',
-                'types',
-                'accessModifiers',
-                'expirationTimes'));})
+        Route::get('/create', [PasteController::class, 'create'])
             ->name('pastes.create');
 
         Route::get('/{id}', [PasteController::class, 'show'])
@@ -91,13 +67,8 @@ Route::prefix('pastes')
 
         Route::prefix('/{id}/complaints')
             ->group(function (){
-                Route::get('/create', function (string $id){
-
-                    $pasteController = app()->make(PasteController::class);
-                    $paste = $pasteController->getById($id);
-
-                    return view('complaints.create', compact('paste'));
-                })->name('complaints.create');
+                Route::get('/create', [ComplaintController::class, 'create'])
+                    ->name('complaints.create');
 
                 Route::post('/store', [ComplaintController::class, 'store'])
                     ->name('complaints.store');

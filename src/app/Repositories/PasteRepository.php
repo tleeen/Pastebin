@@ -8,14 +8,13 @@ use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Utils\UserUtil;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class PasteRepository implements PasteRepositoryInterface
 {
     /**
-     * @return Collection
+     * @return Collection<int Paste>
      */
     public function getAll(): Collection
     {
@@ -23,13 +22,27 @@ class PasteRepository implements PasteRepositoryInterface
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return void
      */
-    public function delete(string $id): void
+    public function delete(int $id): void
     {
         $user = Paste::find($id);
         $user->delete();
+    }
+
+    public function getAuthor(int $id)
+    {
+        return $this::rulesForAuthorPastes($id)
+            ->paginate(10);
+    }
+
+    public function getAuthorLast(int $id)
+    {
+        return $this::rulesForAuthorPastes($id)
+            ->latest()
+            ->take(10)
+            ->get();
     }
 
     /**
@@ -37,15 +50,15 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function getAllPaginate(): LengthAwarePaginator
     {
-        return $this::rules()
+        return $this::rulesForAllPares()
             ->paginate(10);
     }
 
     /**
-     * @param string $id
-     * @return Model
+     * @param int $id
+     * @return Paste
      */
-    public function getById(string $id): Model
+    public function getById(int $id): Paste
     {
         $userId = UserUtil::getId();
 
@@ -67,11 +80,11 @@ class PasteRepository implements PasteRepositoryInterface
     }
 
     /**
-     * @return Collection
+     * @return Collection<int Paste>
      */
     public function getLast(): Collection
     {
-        return $this::rules()
+        return $this::rulesForAllPares()
             ->latest()
             ->take(10)
             ->get();
@@ -79,9 +92,9 @@ class PasteRepository implements PasteRepositoryInterface
 
     /**
      * @param PasteDTO $DTO
-     * @return Model
+     * @return Paste
      */
-    public function store(PasteDTO $DTO): Model
+    public function store(PasteDTO $DTO): Paste
     {
         $userId = UserUtil::getId();
 
@@ -95,7 +108,18 @@ class PasteRepository implements PasteRepositoryInterface
         ]);
     }
 
-    public static function rules(): Builder
+    public static function rulesForAuthorPastes(int $id)
+    {
+        return Paste::where('author_id', $id)
+            ->join('expiration_times', 'pastes.expiration_time_id', '=', 'expiration_times.id')
+            ->where('pastes.created_at', '>', DB::raw('now() - INTERVAL expiration_times.volume MINUTE - INTERVAL 7 HOUR'))
+            ->select('pastes.*');
+    }
+
+    /**
+     * @return Builder
+     */
+    public static function rulesForAllPares(): Builder
     {
         $userId = UserUtil::getId();
 

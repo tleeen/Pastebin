@@ -13,7 +13,11 @@ class HashUtil
         return $hashids->encode($id);
     }
 
-    static public function decipher(string $hash)
+    /**
+     * @param string $hash
+     * @return int
+     */
+    static public function decipher(string $hash): int
     {
         $hashids = new Hashids('ggIKLdf', 8);
 
