@@ -31,9 +31,9 @@ interface PasteRepositoryInterface
     public function getById(int $id): Paste;
 
     /**
-     * @return Collection<int, Paste>
+     * @return \Illuminate\Support\Collection<int, Paste>
      */
-    public function getLast(): Collection;
+    public function getLast(): \Illuminate\Support\Collection;
 
     /**
      * @param PasteDTO $DTO
@@ -43,9 +43,9 @@ interface PasteRepositoryInterface
 
     /**
      * @param int $id
-     * @return Collection<int, Paste>
+     * @return \Illuminate\Support\Collection<int, Paste>
      */
-    public function getAuthorLast(int $id): Collection;
+    public function getAuthorLast(int $id): \Illuminate\Support\Collection;
 
     /**
      * @param int $id
