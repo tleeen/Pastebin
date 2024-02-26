@@ -16,7 +16,7 @@ interface ComplaintServiceInterface
     public function store(ComplaintDTO $DTO): Complaint;
 
     /**
-     * @return Collection
+     * @return Collection<int, Complaint>
      */
     public function getAll(): Collection;
 }

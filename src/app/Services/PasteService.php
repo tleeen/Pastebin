@@ -8,8 +8,7 @@ use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Utils\HashUtil;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
+use  Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PasteService implements PasteServiceInterface
 {
@@ -25,10 +24,9 @@ class PasteService implements PasteServiceInterface
     {
         $pastes = $this->repository->getAllPaginate();
 
-        $pastes->transform(function ($paste) {
+        foreach ($pastes->items() as $paste) {
             $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
+        }
 
         return $pastes;
     }
@@ -106,10 +104,9 @@ class PasteService implements PasteServiceInterface
     {
         $pastes = $this->repository->getAuthor($id);
 
-        $pastes->transform(function ($paste) {
+        foreach ($pastes->items() as $paste) {
             $paste->hash_id = HashUtil::encrypt($paste->id);
-            return $paste;
-        });
+        }
 
         return $pastes;
     }

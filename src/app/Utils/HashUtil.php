@@ -7,10 +7,10 @@ use Hashids\Hashids;
 class HashUtil
 {
     /**
-     * @param string $id
+     * @param int $id
      * @return string
      */
-    static public function encrypt(string $id): string
+    static public function encrypt(int $id): string
     {
         $hashids = new Hashids('ggIKLdf', 8);
 

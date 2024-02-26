@@ -24,19 +24,19 @@ class UserController extends Controller
 
 
     /**
-     * @param string $id
+     * @param int $id
      * @return AnonymousResourceCollection
      */
-    public function pastes(string $id): AnonymousResourceCollection
+    public function pastes(int $id): AnonymousResourceCollection
     {
         return PasteResource::collection($this->pasteService->getAuthor($id));
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return AnonymousResourceCollection
      */
-    public function lastPastes(string $id): AnonymousResourceCollection
+    public function lastPastes(int $id): AnonymousResourceCollection
     {
         return PasteResource::collection($this->pasteService->getAuthorLast($id));
     }
@@ -50,10 +50,10 @@ class UserController extends Controller
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return void
      */
-    public function destroy(string $id): void
+    public function destroy(int $id): void
     {
         $this->userService->delete($id);
     }

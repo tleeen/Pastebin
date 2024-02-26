@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\PasteRepositoryInterface;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
+use  Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class PasteRepository implements PasteRepositoryInterface
@@ -43,9 +43,9 @@ class PasteRepository implements PasteRepositoryInterface
 
     /**
      * @param int $id
-     * @return \Illuminate\Support\Collection
+     * @return Collection<int, Paste>
      */
-    public function getAuthorLast(int $id): \Illuminate\Support\Collection
+    public function getAuthorLast(int $id): Collection
     {
         return $this::rulesForAuthorPastes($id)
             ->latest()
@@ -86,9 +86,9 @@ class PasteRepository implements PasteRepositoryInterface
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int, Paste>
+     * @return Collection<int, Paste>
      */
-    public function getLast(): \Illuminate\Support\Collection
+    public function getLast(): Collection
     {
         return $this::rulesForAllPares()
             ->latest()
@@ -125,22 +125,26 @@ class PasteRepository implements PasteRepositoryInterface
     }
 
     /**
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
-    public static function rulesForAllPares(): \Illuminate\Database\Query\Builder
+    private static function rulesForAllPares(): Builder
     {
-        return Paste::join('expiration_times', 'pastes.expiration_time_id', '=', 'expiration_times.id')
+        return Paste::query()
+        ->join('expiration_times', 'pastes.expiration_time_id', '=', 'expiration_times.id')
             ->where('pastes.created_at', '>', DB::raw('now() - INTERVAL expiration_times.volume MINUTE - INTERVAL 7 HOUR'))
             ->select('pastes.*')
-            ->where(function ($query){
-                $query->whereHas('access_modifier', function ($query){
-                    $query->where('title', 'public');})
+            ->where(function ($query) {
+                $query->whereHas('access_modifier', function ($query) {
+                    $query->where('title', 'public');
+                })
                     ->orWhere('author_id', Auth::id())
-                    ->where(function ($query){
-                        $query->WhereHas('access_modifier', function ($query) {
-                            $query->where('title', 'private');})
+                    ->where(function ($query) {
+                        $query->whereHas('access_modifier', function ($query) {
+                            $query->where('title', 'private');
+                        })
                             ->orWhereHas('access_modifier', function ($query) {
-                                $query->where('title', 'unlisted ');});
+                                $query->where('title', 'unlisted ');
+                            });
                     });
             });
     }

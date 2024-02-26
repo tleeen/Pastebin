@@ -4,17 +4,23 @@ namespace App\DTO\Factories;
 
 use App\DTO\ComplaintDTO;
 use App\Utils\HashUtil;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 class ComplaintDTOFactory
 {
-    public static function fromRequest(Request $request): ComplaintDTO
+    /**
+     * @param FormRequest $request
+     * @return ComplaintDTO
+     */
+    public static function fromRequest(FormRequest $request): ComplaintDTO
     {
         return self::fromArray($request->validated());
     }
 
     /**
-     * @param array $data
+     * @param array{'body': string,
+     *      'id': string,
+     *      } $data
      * @return ComplaintDTO
      */
     public static function fromArray(array $data): ComplaintDTO

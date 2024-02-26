@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 
 /**
@@ -19,32 +22,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $author_id
  * @property int $access_modifier_id
  * @property int $expiration_time_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\AccessModifier|null $access_modifier
- * @property-read \App\Models\User|null $author
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Complaint> $complaints
+ * @property string|null $hash_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read AccessModifier|null $access_modifier
+ * @property-read User|null $author
+ * @property-read Collection<int, Complaint> $complaints
  * @property-read int|null $complaints_count
- * @property-read \App\Models\ExpirationTime|null $expiration_time
- * @property-read \App\Models\Type|null $type
- * @method static \Illuminate\Database\Eloquent\Builder|Paste newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Paste newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Paste onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Paste query()
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereAccessModifierId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereAuthorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereBody($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereExpirationTimeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Paste withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Paste withoutTrashed()
- * @mixin \Eloquent
+ * @property-read ExpirationTime|null $expiration_time
+ * @property-read Type|null $type
+ * @method static Builder|Paste newModelQuery()
+ * @method static Builder|Paste newQuery()
+ * @method static Builder|Paste onlyTrashed()
+ * @method static Builder|Paste query()
+ * @method static Builder|Paste find($id)
+ * @method static Builder|Paste create($array)
+ * @method static Builder|Paste where($value, $relation = null, $expression = null)
+ * @method static Builder|Paste join($table, $fk, $relation, $pk)
+ * @method static Builder|Paste whereAccessModifierId($value)
+ * @method static Builder|Paste whereAuthorId($value)
+ * @method static Builder|Paste whereBody($value)
+ * @method static Builder|Paste whereCreatedAt($value)
+ * @method static Builder|Paste whereDeletedAt($value)
+ * @method static Builder|Paste whereExpirationTimeId($value)
+ * @method static Builder|Paste whereId($value)
+ * @method static Builder|Paste whereTitle($value)
+ * @method static Builder|Paste whereTypeId($value)
+ * @method static Builder|Paste whereUpdatedAt($value)
+ * @method static Builder|Paste withTrashed()
+ * @method static Builder|Paste withoutTrashed()
  */
 class Paste extends Model
 {

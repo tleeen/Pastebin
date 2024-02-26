@@ -5,7 +5,7 @@ namespace App\Services\interfaces;
 use App\DTO\PasteDTO;
 use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use  Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface PasteServiceInterface
 {
@@ -13,6 +13,11 @@ interface PasteServiceInterface
      * @return Collection<int, Paste>
      */
     public function getAll(): Collection;
+
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function getAllPaginate(): LengthAwarePaginator;
 
     /**
      * @param string $hash
@@ -37,7 +42,15 @@ interface PasteServiceInterface
      */
     public function delete(string $hash): void;
 
-    public function getAuthorLast(int $id);
+    /**
+     * @param int $id
+     * @return Collection<int, Paste>
+     */
+    public function getAuthorLast(int $id): Collection;
 
-    public function getAuthor(int $id);
+    /**
+     * @param int $id
+     * @return LengthAwarePaginator
+     */
+    public function getAuthor(int $id): LengthAwarePaginator;
 }

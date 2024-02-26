@@ -3,17 +3,26 @@
 namespace App\DTO\Factories;
 
 use App\DTO\PasteDTO;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 class PasteDTOFactory
 {
-    public static function fromRequest(Request $request): PasteDTO
+    /**
+     * @param FormRequest $request
+     * @return PasteDTO
+     */
+    public static function fromRequest(FormRequest $request): PasteDTO
     {
         return self::fromArray($request->validated());
     }
 
     /**
-     * @param array $data
+     * @param array{'title': string,
+     *     'body': string,
+     *     'typeId': int,
+     *     'accessModifierId': int,
+     *     'expirationTimeId': int
+     *     } $data
      * @return PasteDTO
      */
     public static function fromArray(array $data): PasteDTO

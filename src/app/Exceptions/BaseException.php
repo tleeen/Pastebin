@@ -3,13 +3,18 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class BaseException extends Exception
 {
-    protected $statusCode;
-    protected $errorMessage;
+    protected int $statusCode;
+    protected string $errorMessage;
 
-    public function __construct($statusCode, $errorMessage)
+    /**
+     * @param int $statusCode
+     * @param string $errorMessage
+     */
+    public function __construct(int $statusCode, string $errorMessage)
     {
         $this->statusCode = $statusCode;
         $this->errorMessage = $errorMessage;
@@ -17,17 +22,26 @@ class BaseException extends Exception
         parent::__construct($errorMessage, $statusCode);
     }
 
-    public function getStatusCode()
+    /**
+     * @return int
+     */
+    public function getStatusCode(): int
     {
         return $this->statusCode;
     }
 
-    public function getErrorMessage()
+    /**
+     * @return string
+     */
+    public function getErrorMessage(): string
     {
         return $this->errorMessage;
     }
 
-    public function render()
+    /**
+     * @return JsonResponse
+     */
+    public function render(): JsonResponse
     {
         return response()->json([
             'success' => false,

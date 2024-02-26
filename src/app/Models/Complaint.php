@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Complaint
@@ -13,23 +15,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $body
  * @property int $paste_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Paste|null $paste
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint query()
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint whereBody($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint wherePasteId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Complaint withoutTrashed()
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Paste|null $paste
+ * @method static Builder|Complaint newModelQuery()
+ * @method static Builder|Complaint newQuery()
+ * @method static Builder|Complaint onlyTrashed()
+ * @method static Builder|Complaint query()
+ * @method static Builder|Complaint create($array)
+ * @method static Builder|Complaint whereBody($value)
+ * @method static Builder|Complaint whereCreatedAt($value)
+ * @method static Builder|Complaint whereDeletedAt($value)
+ * @method static Builder|Complaint whereId($value)
+ * @method static Builder|Complaint wherePasteId($value)
+ * @method static Builder|Complaint whereUpdatedAt($value)
+ * @method static Builder|Complaint withTrashed()
+ * @method static Builder|Complaint withoutTrashed()
  */
 class Complaint extends Model
 {

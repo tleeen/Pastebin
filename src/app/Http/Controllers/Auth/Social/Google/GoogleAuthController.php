@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Auth\Social\Google;
 use App\DTO\Factories\SocialUserDTOFactory;
 use App\Http\Controllers\Controller;
 use App\Services\interfaces\SocialServiceInterface;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class GoogleAuthController extends Controller
 {
@@ -25,9 +25,9 @@ class GoogleAuthController extends Controller
     }
 
     /**
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function login(): RedirectResponse
+    public function login(): \Illuminate\Http\RedirectResponse
     {
         $user = $this
             ->service

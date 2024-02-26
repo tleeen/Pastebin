@@ -38,9 +38,9 @@ class AppServiceProvider extends ServiceProvider
     /**
      * All the container bindings that should be registered.
      *
-     * @var array
+     * @var array<mixed>
      */
-    public $bindings = [
+    public array $bindings = [
         SocialRepositoryInterface::class => SocialRepository::class,
         SocialServiceInterface::class => SocialService::class,
 

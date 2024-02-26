@@ -10,7 +10,7 @@ class ComplaintPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function browse(User $user)
+    public function browse(User $user): bool
     {
         return true;
     }

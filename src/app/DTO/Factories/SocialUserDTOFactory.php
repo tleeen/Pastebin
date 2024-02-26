@@ -3,18 +3,22 @@
 namespace App\DTO\Factories;
 
 use App\DTO\SocialUserDTO;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 
 class SocialUserDTOFactory
 {
-    public static function fromRequest(Request $request): SocialUserDTO
+    /**
+     * @param FormRequest $request
+     * @return SocialUserDTO
+     */
+    public static function fromRequest(FormRequest $request): SocialUserDTO
     {
         return self::fromArray($request->validated());
     }
 
     /**
-     * @param array $data
+     * @param array{'email': string} $data
      * @return SocialUserDTO
      */
     public static function fromArray(array $data): SocialUserDTO

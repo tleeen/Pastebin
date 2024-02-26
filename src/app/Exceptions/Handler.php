@@ -33,7 +33,6 @@ class Handler extends ExceptionHandler
         if ($e instanceof ForbiddenAccessException) {
             return $e->render();
         }
-
         return parent::render($request, $e);
     }
 }
