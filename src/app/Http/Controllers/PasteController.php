@@ -8,9 +8,9 @@ use App\Services\interfaces\AccessModifierServiceInterface;
 use App\Services\interfaces\ExpirationTimeServiceInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Services\interfaces\TypeServiceInterface;
-use Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class PasteController extends Controller
 {

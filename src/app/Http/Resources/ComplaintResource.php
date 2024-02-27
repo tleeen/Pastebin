@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Complaint;
 use App\Utils\HashUtil;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Complaint
+ */
 class ComplaintResource extends JsonResource
 {
     /**
