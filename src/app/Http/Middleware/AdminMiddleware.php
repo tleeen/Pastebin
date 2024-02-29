@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\ForbiddenAccessException;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use TCG\Voyager\Models\Role;
 
 class AdminMiddleware
 {
@@ -16,8 +17,15 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()){
-            if(auth()->user()->role->name === 'admin'){
+        /** @var User|null $user */
+        $user = auth()->user();
+
+        if($user){
+
+            /** @var Role $role */
+            $role = $user->role;
+
+            if($role->name === 'admin'){
                 return redirect('/admin');
             }
         }

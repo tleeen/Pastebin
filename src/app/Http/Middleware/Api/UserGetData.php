@@ -3,6 +3,7 @@
 namespace App\Http\Middleware\Api;
 
 use App\Exceptions\ForbiddenAccessException;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,10 @@ class UserGetData
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth('api')->user()->id != $request->route()->parameter('id')){
+        /** @var User $user */
+        $user = auth('api')->user();
+
+        if($user->id !== (int)$request->route('id')){
             throw new ForbiddenAccessException( );
         }
 

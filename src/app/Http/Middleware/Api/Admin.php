@@ -3,6 +3,8 @@
 namespace App\Http\Middleware\Api;
 
 use App\Exceptions\ForbiddenAccessException;
+use App\Models\User;
+use TCG\Voyager\Models\Role;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +19,18 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth('api')->user()){
-            throw new ForbiddenAccessException( );
+        /** @var User|null $user */
+        $user = auth('api')->user();
+
+        if($user){
+            /** @var Role $role */
+            $role = $user->role;
+
+            if ($role->name !== 'admin'){
+                throw new ForbiddenAccessException();
+            }
         }
-        elseif(auth('api')->user()->role->name !== 'admin'){
+        else{
             throw new ForbiddenAccessException();
         }
 

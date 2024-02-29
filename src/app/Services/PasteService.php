@@ -97,10 +97,10 @@ class PasteService implements PasteServiceInterface
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return LengthAwarePaginator
      */
-    public function getAuthor(int $id): LengthAwarePaginator
+    public function getAuthor(int|null $id): LengthAwarePaginator
     {
         $pastes = $this->repository->getAuthor($id);
 
@@ -112,10 +112,10 @@ class PasteService implements PasteServiceInterface
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return Collection<int, Paste>
      */
-    public function getAuthorLast(int $id): Collection
+    public function getAuthorLast(int|null $id): Collection
     {
         $pastes = $this->repository->getAuthorLast($id);
 

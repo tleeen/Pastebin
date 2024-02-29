@@ -8,9 +8,9 @@ use App\Services\interfaces\AccessModifierServiceInterface;
 use App\Services\interfaces\ExpirationTimeServiceInterface;
 use App\Services\interfaces\PasteServiceInterface;
 use App\Services\interfaces\TypeServiceInterface;
+use App\Utils\UserUtil;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Auth;
 
 class PasteController extends Controller
 {
@@ -70,7 +70,7 @@ class PasteController extends Controller
     public function create(): View
     {
         $lastPastes = $this->pasteService->getLast();
-        $lastPastesUser = $this->pasteService->getAuthorLast((Auth::id()) ? Auth::id() : 0);
+        $lastPastesUser = $this->pasteService->getAuthorLast(UserUtil::getId());
         $types = $this->typeService->getAll();
         $accessModifiers = $this->accessModifierService->getAll();
         $expirationTimes = $this->expirationTimeService->getAll();

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Config;
 
@@ -27,7 +30,10 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth('api')->attempt($credentials)) {
+        /** @var SessionGuard|AuthManager $auth */
+        $auth = auth('api');
+
+        if (! $token = (string)$auth->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -51,7 +57,11 @@ class AuthController extends Controller
      */
     public function logout(): JsonResponse
     {
-        auth('api')->logout();
+
+        /** @var SessionGuard|AuthManager $auth */
+        $auth = auth('api');
+
+        $auth->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -63,7 +73,10 @@ class AuthController extends Controller
      */
     public function refresh(): JsonResponse
     {
-        return $this->respondWithToken(auth('api')->refresh());
+        /** @var User $user */
+        $user = auth('api')->user();
+
+        return $this->respondWithToken($user->refresh());
     }
 
     /**

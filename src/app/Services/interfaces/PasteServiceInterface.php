@@ -43,14 +43,14 @@ interface PasteServiceInterface
     public function delete(string $hash): void;
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return Collection<int, Paste>
      */
-    public function getAuthorLast(int $id): Collection;
+    public function getAuthorLast(int|null $id): Collection;
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return LengthAwarePaginator
      */
-    public function getAuthor(int $id): LengthAwarePaginator;
+    public function getAuthor(int|null $id): LengthAwarePaginator;
 }
