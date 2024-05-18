@@ -38,17 +38,6 @@ DB_DATABASE=database
 DB_USERNAME=root
 DB_PASSWORD=123
 ```
-
-Для того, чтобы работала авторизация через гугл и яндекс, необходимо указать следующие параметры в .env
-```sh
-'GOOGLE_CLIENT_ID'=291201051689-bn20h6vqt5mus2iv177k5ahe04ont9li.apps.googleusercontent.com
-'GOOGLE_CLIENT_SECRET'=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
-'GOOGLE_REDIRECT_URI'=https://localhost:8876/auth/google/callback
-
-'YANDEX_CLIENT_ID'=28f4d7bfde5b450ebc1baa866252c12e
-'YANDEX_CLIENT_SECRET'=acccf00908f243d6bc2b46110b9b58f6
-'YANDEX_REDIRECT_URI'=https://localhost:8876/auth/yandex/callback
-```
 Сгенерируйте новый ключ приложения
 ```sh
   php artisan key:generate
